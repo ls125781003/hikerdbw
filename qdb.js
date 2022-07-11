@@ -1,4 +1,4 @@
-let version = 202207110001;
+let version = 202207110002;
 let defaultConfigs = {
     starColor: "#ffac2d",
     chooseColor: "#FA7298",
@@ -1369,7 +1369,7 @@ function detailsView(type, id) {
     })
 }
 
-//找影视
+//推荐
 function findList(page, count) {
     if (!getVar('findList')) putVar('findList', '{"item":"movie","playable":"0","score":"0,10"}');
     let a = [];
@@ -1458,7 +1458,7 @@ function findList(page, count) {
             }, type, id, title, useConfig);
         }
         return {
-            title: title + "（" + e.year + "）",
+            title: title + (type === "playlist" ? "" : "（" + e.year + "）"),
             url: urlParams.url,
             extra: urlParams.extra,
             img: e.pic ? e.pic.normal + "@Referer=" + e.pic.normal : e.cover_url + "@Referer=" + e.cover_url,
