@@ -1,4 +1,4 @@
-let version = 202207110000;
+let version = 202207110001;
 let defaultConfigs = {
     starColor: "#ffac2d",
     chooseColor: "#FA7298",
@@ -118,7 +118,7 @@ function home() {
             setItem('update', String(version));
             confirm({
                 title: '本次更新内容',
-                content: '1.修复演职人员界面图片显示',
+                content: '1.换个代码仓库',
                 confirm: '',
                 cancel: ''
             })
@@ -287,7 +287,7 @@ function erji() {
     }
 }
 
-//获取豆瓣资源,返回json
+//获取豆瓣资源,返回json数据
 function getDoubanRes(url) {
     if (url.indexOf('apikey') === -1) {
         url += (url.indexOf('?') === -1 ? '?' : '&') + "apikey=0dad551ec0f84ed02907ff5c42e8ec70"
@@ -301,11 +301,6 @@ function getDoubanRes(url) {
     });
     return JSON.parse(s);
 }
-//"Authorization": "Bearer 18a7c2ea80b2154049f748bf82163fc0"
-//"User-Agent":"Rexxar-Core/0.1.3 api-client/1 com.douban.frodo/7.9.0.beta2(215) Android/25 product/TAS-AL00 vendor/HUAWEI model/TAS-AL00  rom/android  network/wifi  udid/59ee7ab3fc379199a62a83c35abdf80675ddb67e  platform/mobile com.douban.frodo/7.9.0.beta2(215) Rexxar/1.2.151  platform/mobile 1.2.151"
-//"User-Agent":"Rexxar-Core/0.1.3 api-client/1 com.douban.frodo/6.36.0(186) Android/23 product/cancro vendor/HUAWEI model/Mate 10 rom/android network/wifi platform/mobile com.douban.frodo/6.36.0(186) Rexxar/1.2.151 platform/mobile 1.2.151"
-//"User-Agent":"api-client/1 com.douban.frodo/6.36.0(186) Android/23 product/cancro vendor/HUAWEI model/Mate 10 rom/android network/wifi platform/mobile"
-//"User-Agent": "api-client/1 com.douban.frodo/6.44.0(196)"
 
 //获取当前页码,用于翻页
 function getPage() {
