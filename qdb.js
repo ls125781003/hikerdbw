@@ -1,9 +1,14 @@
-let version = 202207110002;
+let version = 202207110003;
 let defaultConfigs = {
     starColor: "#ffac2d",
     chooseColor: "#FA7298",
     quickSearchConfigs: {
-        order: []
+        mode: "scroll_button",
+        order: ["海阔搜索"],
+        "海阔搜索": {
+            name: "",
+            pic: ""
+        }
     },
     detailsViewConfigs: {
         use: "默认",
@@ -118,7 +123,7 @@ function home() {
             setItem('update', String(version));
             confirm({
                 title: '本次更新内容',
-                content: '1.换个代码仓库',
+                content: '1.随便改改',
                 confirm: '',
                 cancel: ''
             })
@@ -2506,7 +2511,7 @@ function detailViewModeModule(d, detailsViewConfigs) {
         if (configKey === 'use') continue;
         d.push({
             title: configKey === detailsViewConfigs.use ? "““" + configKey + "””" : configKey,
-            url: $().lazyRule(configKey => {
+            url: $("hiker://empty#noLoading#").lazyRule(configKey => {
                 let config = JSON.parse(request(getVar('qdb_config')))
                 if (config.detailsViewConfigs.use === configKey) {
                     putVar("input_config_type", '影片详情页面配置')
@@ -2556,21 +2561,20 @@ function detailViewModeModule(d, detailsViewConfigs) {
     d.push({
         title: '📝',
         col_type: 'flex_button',
-        url: $(Object.keys(detailsViewConfigs).filter(configKey => configKey !== 'use'), 2)
-            .select(() => {
-                // if (input === '默认') return 'toast://默认配置无法编辑！'
-                let config = JSON.parse(request(getVar('qdb_config')))
-                return $().rule((config, configKey) => {
-                    eval(request(getVar('qdb_file')))
-                    let d = [];
-                    setPageTitle("编辑详情页代码")
-                    putVar("input_name", configKey)
-                    putVar("input_code", config.detailsViewConfigs[configKey].config)
-                    putVar("input_setting_code", config.detailsViewConfigs[configKey].setting)
-                    detailViewModeEditPage(d)
-                    setResult(d);
-                }, config, input)
-            })
+        url: $(Object.keys(detailsViewConfigs).filter(configKey => configKey !== 'use'), 2).select(() => {
+            // if (input === '默认') return 'toast://默认配置无法编辑！'
+            let config = JSON.parse(request(getVar('qdb_config')))
+            return $().rule((config, configKey) => {
+                eval(request(getVar('qdb_file')))
+                let d = [];
+                setPageTitle("编辑详情页代码")
+                putVar("input_name", configKey)
+                putVar("input_code", config.detailsViewConfigs[configKey].config)
+                putVar("input_setting_code", config.detailsViewConfigs[configKey].setting)
+                detailViewModeEditPage(d)
+                setResult(d);
+            }, config, input)
+        })
     })
     d.push({
         title: '📥',
@@ -2595,20 +2599,19 @@ function detailViewModeModule(d, detailsViewConfigs) {
     d.push({
         title: '📤',
         col_type: 'flex_button',
-        url: $(Object.keys(detailsViewConfigs).filter(configKey => configKey !== 'use'), 2)
-            .select(() => {
-                // if (input === '默认') return 'toast://默认配置无法编辑！'
+        url: $(Object.keys(detailsViewConfigs).filter(configKey => configKey !== 'use'), 2).select(() => {
+            // if (input === '默认') return 'toast://默认配置无法编辑！'
+            eval(request(getVar('qdb_file')))
+            let config = getConfig();
+            let selectConfig = {
+                name: input,
+                data: config.detailsViewConfigs[input]
+            }
+            return $(ConfigTool.encTypeList, 2).select((selectConfig) => {
                 eval(request(getVar('qdb_file')))
-                let config = getConfig();
-                let selectConfig = {
-                    name: input,
-                    data: config.detailsViewConfigs[input]
-                }
-                return $(ConfigTool.encTypeList, 2).select((selectConfig) => {
-                    eval(request(getVar('qdb_file')))
-                    return ConfigTool.toClipboard(ConfigTool.export(selectConfig.name, selectConfig, "影片详情页面配置", input))
-                }, selectConfig)
-            })
+                return ConfigTool.toClipboard(ConfigTool.export(selectConfig.name, selectConfig, "影片详情页面配置", input))
+            }, selectConfig)
+        })
     })
 }
 // 详情页设置模块
@@ -2793,7 +2796,7 @@ function analysisModeModule(d, analysisConfigs) {
         if (configKey === 'use') continue;
         d.push({
             title: configKey === analysisConfigs.use ? "““" + configKey + "””" : configKey,
-            url: $().lazyRule(configKey => {
+            url: $("hiker://empty#noLoading#").lazyRule(configKey => {
                 let config = JSON.parse(request(getVar('qdb_config')))
                 if (config.analysisConfigs.use === configKey) {
                     putVar("input_config_type", '解析插件配置')
@@ -2885,20 +2888,19 @@ function analysisModeModule(d, analysisConfigs) {
     d.push({
         title: '📤',
         col_type: 'flex_button',
-        url: $(Object.keys(analysisConfigs).filter(configKey => configKey !== 'use'), 2)
-            .select(() => {
-                // if (input === '默认') return 'toast://默认配置无法编辑！'
+        url: $(Object.keys(analysisConfigs).filter(configKey => configKey !== 'use'), 2).select(() => {
+            // if (input === '默认') return 'toast://默认配置无法编辑！'
+            eval(request(getVar('qdb_file')))
+            let config = getConfig();
+            let selectConfig = {
+                name: input,
+                data: config.analysisConfigs[input]
+            }
+            return $(ConfigTool.encTypeList, 2).select((selectConfig) => {
                 eval(request(getVar('qdb_file')))
-                let config = getConfig();
-                let selectConfig = {
-                    name: input,
-                    data: config.analysisConfigs[input]
-                }
-                return $(ConfigTool.encTypeList, 2).select((selectConfig) => {
-                    eval(request(getVar('qdb_file')))
-                    return ConfigTool.toClipboard(ConfigTool.export(selectConfig.name, selectConfig, "解析插件配置", input))
-                }, selectConfig)
-            })
+                return ConfigTool.toClipboard(ConfigTool.export(selectConfig.name, selectConfig, "解析插件配置", input))
+            }, selectConfig)
+        })
     })
 }
 
@@ -2981,10 +2983,9 @@ function quickSearchDIYModule(d, config) {
     for (let configKey of quickSearchConfigs.order) {
         d.push({
             title: configKey,
-            url: $('➕是添加\n➖是删除\n📝是修改\n🔁是排序\n⚙️是设置样式')
-                .confirm(() => {
-                    return 'toast://下次不要再点我了'
-                }),
+            url: $('➕是添加\n➖是删除\n📝是修改\n🔁是排序\n⚙️是设置样式').confirm(() => {
+                return 'toast://下次不要再点我了'
+            }),
             col_type: 'flex_button'
         })
     }
@@ -3120,7 +3121,7 @@ function quickSearchDIYModule(d, config) {
     d.push({
         title: '⚙️',
         col_type: 'flex_button',
-        url: $(quickSearchConfigs['mode'] || "", '请正确输入组件样式').input(() => {
+        url: $(quickSearchConfigs['mode'] || "", '请正确输入组件样式\n建议值:flex_button scroll_button icon_round_small_4 icon_small_4').input(() => {
             let config = JSON.parse(request(getVar('qdb_config')));
             config.quickSearchConfigs.mode = input;
             writeFile(getVar('qdb_config'), JSON.stringify(config));
