@@ -1,4 +1,4 @@
-let version = 202207110003;
+let version = 202208290000;
 let defaultConfigs = {
     starColor: "#ffac2d",
     chooseColor: "#FA7298",
@@ -1389,7 +1389,7 @@ function findList(page, count) {
         a.push({
             title: temp.item === items[i] ? '““””<b> <font color=' + color + '>' + i + ' </font></b>' : i,
             col_type: 'scroll_button',
-            url: $('hiker: //empty').lazyRule((e) => {
+            url: $('hiker: //empty#noLoading#').lazyRule((e) => {
                 let temp = JSON.parse(getVar('findList'));
                 temp.item = e;
                 putVar("findList", JSON.stringify(temp));
@@ -1411,7 +1411,7 @@ function findList(page, count) {
         a.push({
             title: temp.playable == playable[r] ? '““””<b> <font color=' + color + '>' + r + ' </font></b>' : r,
             col_type: 'scroll_button',
-            url: $('hiker: //empty').lazyRule((e) => {
+            url: $('hiker: //empty#noLoading#').lazyRule((e) => {
                 let temp = JSON.parse(getVar('findList'));
                 temp.playable = e;
                 putVar("findList", JSON.stringify(temp));
@@ -1511,7 +1511,7 @@ function hotList(page, count) {
             a.push({
                 title: temp.item == items[i][j] ? '““””<b> <font color=' + color + '>' + j + ' </font></b>' : j,
                 col_type: 'scroll_button',
-                url: $('hiker://empty').lazyRule((e) => {
+                url: $('hiker://empty#noLoading#').lazyRule((e) => {
                     let temp = JSON.parse(getVar('hotList'));
                     temp.item = e;
                     putVar('hotList', JSON.stringify(temp));
@@ -1534,7 +1534,7 @@ function hotList(page, count) {
         a.push({
             title: temp.sort == sort[r] ? '““””<b> <font color=' + color + '>' + r + ' </font></b>' : r,
             col_type: 'scroll_button',
-            url: $('hiker: //empty').lazyRule((e) => {
+            url: $('hiker: //empty#noLoading#').lazyRule((e) => {
                 let temp = JSON.parse(getVar('hotList'));
                 temp.sort = e;
                 putVar("hotList", JSON.stringify(temp));
@@ -1556,7 +1556,7 @@ function hotList(page, count) {
         a.push({
             title: temp.playable == playable[r] ? '““””<b> <font color=' + color + '>' + r + ' </font></b>' : r,
             col_type: 'scroll_button',
-            url: $('hiker: //empty').lazyRule((e) => {
+            url: $('hiker: //empty#noLoading#').lazyRule((e) => {
                 let temp = JSON.parse(getVar('hotList'));
                 temp.playable = e;
                 putVar("hotList", JSON.stringify(temp));
@@ -1644,7 +1644,7 @@ function classList(page, count) {
             a.push({
                 title: !temp[item] ? (i === 0 ? '““””<b> <font color=' + color + '>' + items[item][0] + ' </font></b>' : items[item][i]) : (temp[item] == items[item][i] ? '““””<b> <font color=' + color + '>' + items[item][i] + ' </font></b>' : items[item][i]),
                 col_type: 'scroll_button',
-                url: $('hiker://empty').lazyRule((e) => {
+                url: $('hiker://empty#noLoading#').lazyRule((e) => {
                     let temp = JSON.parse(getVar('classlist'));
                     temp[e[1]] = e[0].indexOf("全部") != -1 ? "" : e[0];
                     putVar("classlist", JSON.stringify(temp));
@@ -1668,7 +1668,7 @@ function classList(page, count) {
         a.push({
             title: temp.rank === rank[r] ? '““””<b> <font color=' + color + '>' + r + ' </font></b>' : r,
             col_type: 'scroll_button',
-            url: $('hiker: //empty').lazyRule((e) => {
+            url: $('hiker: //empty#noLoading#').lazyRule((e) => {
                 let temp = JSON.parse(getVar('classlist'));
                 temp.rank = e;
                 putVar("classlist", JSON.stringify(temp));
@@ -1690,7 +1690,7 @@ function classList(page, count) {
         a.push({
             title: temp.filter === filter[r] ? '““””<b> <font color=' + color + '>' + r + ' </font></b>' : r,
             col_type: 'scroll_button',
-            url: $('hiker: //empty').lazyRule((e) => {
+            url: $('hiker: //empty#noLoading#').lazyRule((e) => {
                 let temp = JSON.parse(getVar('classlist'));
                 temp.filter = e;
                 putVar("classlist", JSON.stringify(temp));
@@ -1823,7 +1823,7 @@ function playList(page, count) {
             a.push({
                 title: temp[i] === items[i][j] ? '““””<b> <font color=' + color + '>' + j + ' </font></b>' : j,
                 col_type: 'scroll_button',
-                url: $('hiker://empty').lazyRule((t) => {
+                url: $('hiker://empty#noLoading#').lazyRule((t) => {
                     let temp = JSON.parse(getVar('playlist', '{"subtype":"","type":"all"}'));
                     temp[t[0]] = t[1];
                     putVar("playlist", JSON.stringify(temp));
@@ -1874,7 +1874,7 @@ function rankList(page, count) {
         a.push({
             title: temp.type == items[i] ? '““””<b> <font color=' + color + '>' + i + ' </font></b>' : i,
             col_type: 'scroll_button',
-            url: $('hiker://empty').lazyRule((e) => {
+            url: $('hiker://empty#noLoading#').lazyRule((e) => {
                 let temp = JSON.parse(getVar('rankList'));
                 temp.type = e;
                 putVar("rankList", JSON.stringify(temp));
@@ -1897,7 +1897,7 @@ function rankList(page, count) {
         a.push({
             title: temp.list == list[i] ? '““””<b> <font color=' + color + '>' + i + ' </font></b>' : i,
             col_type: 'scroll_button',
-            url: $('hiker://empty').lazyRule((e) => {
+            url: $('hiker://empty#noLoading#').lazyRule((e) => {
                 let temp = JSON.parse(getVar('rankList'));
                 temp.list = e;
                 putVar("rankList", JSON.stringify(temp));
@@ -1926,7 +1926,7 @@ function rankList(page, count) {
             a.push({
                 title: temp.year == t.key ? '““””<b> <font color=' + color + '>' + t.title + ' </font></b>' : t.title,
                 col_type: 'scroll_button',
-                url: $('hiker://empty').lazyRule((e) => {
+                url: $('hiker://empty#noLoading#').lazyRule((e) => {
                     let temp = JSON.parse(getVar('rankList'));
                     temp.year = e;
                     putVar("rankList", JSON.stringify(temp));
@@ -1944,7 +1944,7 @@ function rankList(page, count) {
             a.push({
                 title: temp.category == t.key ? '““””<b> <font color=' + color + '>' + t.title + ' </font></b>' : t.title,
                 col_type: 'scroll_button',
-                url: $('hiker://empty').lazyRule((e) => {
+                url: $('hiker://empty#noLoading#').lazyRule((e) => {
                     let temp = JSON.parse(getVar('rankList'));
                     temp.category = e;
                     putVar("rankList", JSON.stringify(temp));
@@ -2019,7 +2019,7 @@ function comingList(page, count) {
         a.push({
             title: temp.type === items[i] ? '““””<b> <font color=' + color + '>' + i + ' </font></b>' : i,
             col_type: 'scroll_button',
-            url: $('hiker://empty').lazyRule((e) => {
+            url: $('hiker://empty#noLoading#').lazyRule((e) => {
                 let temp = JSON.parse(getVar('coming'));
                 temp.type = e;
                 putVar("coming", JSON.stringify(temp));
@@ -2039,7 +2039,7 @@ function comingList(page, count) {
         a.push({
             title: temp.rank === rank[i] ? '““””<b> <font color=' + color + '>' + i + ' </font></b>' : i,
             col_type: 'scroll_button',
-            url: $('hiker://empty').lazyRule((e) => {
+            url: $('hiker://empty#noLoading#').lazyRule((e) => {
                 let temp = JSON.parse(getVar('coming'));
                 temp.rank = e;
                 putVar("coming", JSON.stringify(temp));
@@ -2060,7 +2060,7 @@ function comingList(page, count) {
             a.push({
                 title: temp.local === local[i] ? '““””<b> <font color=' + color + '>' + i + ' </font></b>' : i,
                 col_type: 'scroll_button',
-                url: $('hiker://empty').lazyRule((e) => {
+                url: $('hiker://empty#noLoading#').lazyRule((e) => {
                     let temp = JSON.parse(getVar('coming'));
                     temp.local = e;
                     putVar("coming", JSON.stringify(temp));
@@ -2085,7 +2085,7 @@ function comingList(page, count) {
             a.push({
                 title: temp.area === area[i] ? '““””<b> <font color=' + color + '>' + i + ' </font></b>' : i,
                 col_type: 'scroll_button',
-                url: $('hiker://empty').lazyRule((e) => {
+                url: $('hiker://empty#noLoading#').lazyRule((e) => {
                     let temp = JSON.parse(getVar('coming'));
                     temp.area = e;
                     putVar("coming", JSON.stringify(temp));
@@ -2113,7 +2113,7 @@ function comingList(page, count) {
             a.push({
                 title: temp.filter === filter[i] ? '““””<b> <font color=' + color + '>' + i + ' </font></b>' : i,
                 col_type: 'scroll_button',
-                url: $('hiker://empty').lazyRule((e) => {
+                url: $('hiker://empty#noLoading#').lazyRule((e) => {
                     let temp = JSON.parse(getVar('coming'));
                     temp.filter = e;
                     putVar("coming", JSON.stringify(temp));
@@ -2188,7 +2188,7 @@ function subjectCollectionList(page, count, id) {
             a.push({
                 title: temp.item == items[i][j] ? '““””<b> <font color=' + color + '>' + j + ' </font></b>' : j,
                 col_type: 'scroll_button',
-                url: $('hiker://empty').lazyRule((e) => {
+                url: $('hiker://empty#noLoading#').lazyRule((e) => {
                     let temp = JSON.parse(getVar('ranking'));
                     temp.item = e;
                     putVar("ranking", JSON.stringify(temp));
@@ -2215,7 +2215,7 @@ function subjectCollectionList(page, count, id) {
         i.push({
             title: temp.playable == playable[r] ? '““””<b> <font color=' + color + '>' + r + ' </font></b>' : r,
             col_type: 'scroll_button',
-            url: $('hiker: //empty').lazyRule((e) => {
+            url: $('hiker: //empty#noLoading#').lazyRule((e) => {
                 let temp = JSON.parse(getVar('ranking'));
                 temp.playable = e;
                 putVar("ranking", JSON.stringify(temp));
@@ -2314,7 +2314,7 @@ function douList(id, page, count) {
         i.push({
             title: temp.playable == playable[r] ? '““””<b> <font color=' + color + '>' + r + ' </font></b>' : r,
             col_type: 'scroll_button',
-            url: $('hiker: //empty').lazyRule((e) => {
+            url: $('hiker: //empty#noLoading#').lazyRule((e) => {
                 let temp = JSON.parse(getVar('douList'));
                 temp.playable = e;
                 putVar("douList", JSON.stringify(temp));
