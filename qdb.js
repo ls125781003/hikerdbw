@@ -1,4 +1,4 @@
-let version = 202208290000;
+let version = 202209180000;
 let defaultConfigs = {
     starColor: "#ffac2d",
     chooseColor: "#FA7298",
@@ -1956,10 +1956,10 @@ function rankList(page, count) {
     }
 
     let l = [];
-    if (temp.list == 'rank_list') {
+    if (temp.list == 'rank_list' && MY_PAGE == 1) {
         let s = getDoubanRes("https://frodo.douban.com/api/v2/" + temp.type + '/' + temp.list + (page ? "?start=" + (page - 1) * count + "&count=" + count : "?start=0&count=10"));
         l = s.groups[0].selected_collections;
-    } else if (temp.list == 'year_ranks') {
+    } else if (temp.list == 'year_ranks' && MY_PAGE == 1) {
         let s = getDoubanRes("https://frodo.douban.com/api/v2/" + temp.type + '/' + temp.list + '?year=' + temp.year + (page ? "&start=" + (page - 1) * count + "&count=" + count : "&start=0&count=10"));
         l = s.groups[0].selected_collections;
     } else if (temp.list == 'category_ranks') {
@@ -3067,7 +3067,7 @@ function quickSearchDIYModule(d, config) {
             d.push({
                 title: '分别点击两项以交换顺序\n‘‘排序完毕后点我保存排序,否则排序不生效’’',
                 col_type: 'text_center_1',
-                url: $().lazyRule(() => {
+                url: $('#noLoading#').lazyRule(() => {
                     let config = JSON.parse(fetch(getVar('qdb_config')));
                     config.quickSearchConfigs = JSON.parse(getVar('json'));
                     writeFile(getVar('qdb_config'), JSON.stringify(config));
@@ -3202,7 +3202,7 @@ function settingPage() {
 
 
 
-    d.push({
+    /*d.push({
         title: '““””' + (getVar(QLog.key) == 'true' ? '已进入调试模式(退出此页面自动关闭)'.bold() : '点我进入调试模式'.bold()),
         desc: '导入详情配置和解析配置出错时请打开此模式',
         col_type: 'text_1',
@@ -3217,7 +3217,7 @@ function settingPage() {
             })
             return 'hiker://empty'
         })
-    })
+    })*/
 
     d.push({
         title: '““””' + '恢复默认设置'.bold(),
