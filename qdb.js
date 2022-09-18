@@ -1,4 +1,4 @@
-let version = 202209180000;
+let version = 202209180001;
 let defaultConfigs = {
     starColor: "#ffac2d",
     chooseColor: "#FA7298",
@@ -123,7 +123,7 @@ function home() {
             setItem('update', String(version));
             confirm({
                 title: '本次更新内容',
-                content: '1.随便改改',
+                content: '1.去掉某些地方的loading\n2.去掉某些地方的翻页',
                 confirm: '',
                 cancel: ''
             })
@@ -392,7 +392,7 @@ function rating(type, id, ratingCount) {
     let s = getDoubanRes("https://frodo.douban.com/api/v2/" + type + "/" + id + "/awards?start=" + 20 * (page - 1) + "&count=20");
     r += "<h2>获奖记录" + '<small><font color="grey">' + (s.total != 0 ? '(共' + s.total + '项)' : '(暂无)') + '</font></small>' + "</h2>";
     //r += '<font color="grey">' + (s.total != 0 ? '共' + s.total + '项' : '暂无') + '</font><br/>';
-    let r2 = ''
+    let r2 = '';
     s.awards.forEach(e => {
         r2 += (e.ceremony.title + '(' + e.ceremony.year + ')').big().bold() + '<small>(<a href="hiker://empty#noHistory#@rule=js:eval(fetch(getVar(`qdb_file`)));awardView(`' + e.ceremony.id + '`,`' + e.ceremony.title + '`);">查看详情</a>)</small>' + '<br/>';
         e.categories.forEach(item => {
@@ -410,7 +410,9 @@ function rating(type, id, ratingCount) {
                 col_type: "rich_text"
             }]
         })
-    } else {
+    } else if(s.awards.length == 0){
+        setResult([]);
+    } else{
         setHomeResult({
             data: [{
                 title: r2,
