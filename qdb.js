@@ -1,4 +1,4 @@
-let version = 202209180001;
+let version = 202209210000;
 let defaultConfigs = {
     starColor: "#ffac2d",
     chooseColor: "#FA7298",
@@ -123,7 +123,7 @@ function home() {
             setItem('update', String(version));
             confirm({
                 title: '本次更新内容',
-                content: '1.去掉某些地方的loading\n2.去掉某些地方的翻页',
+                content: '1.某些输入框支持高亮编辑',
                 confirm: '',
                 cancel: ''
             })
@@ -2451,6 +2451,7 @@ function modeEditPage(d, configKey, params) {
                 defaultValue: getVar(data.key, ""),
                 type: data.type ? data.type : '',
                 height: -1,
+                highlight: true,
                 onChange: 'putVar("' + data.key + '", input)'
             }
         })
