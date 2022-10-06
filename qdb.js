@@ -3145,7 +3145,7 @@ function settingPage() {
         desc: '本地依赖版本: ' + version,
         col_type: 'text_1',
         url: $('hiker://empty').lazyRule((currentVersion) => {
-            let gitfile = fetch("https://gitcode.net/qq_41846756/hiker/-/raw/master/qdb.js");
+            let gitfile = request("https://gitcode.net/qq_41846756/hiker/-/raw/master/qdb.js");
             eval(gitfile);
             if (version > currentVersion) {
                 return $("发现新版本,是否更新?").confirm((gitfile) => {
