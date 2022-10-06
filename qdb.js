@@ -1,4 +1,4 @@
-let version = 202209210000;
+let version = 202210060000;
 let defaultConfigs = {
     starColor: "#ffac2d",
     chooseColor: "#FA7298",
@@ -123,7 +123,7 @@ function home() {
             setItem('update', String(version));
             confirm({
                 title: '本次更新内容',
-                content: '1.某些输入框支持高亮编辑',
+                content: '1.修复演职人员详情和获奖详情页面错误',
                 confirm: '',
                 cancel: ''
             })
@@ -773,9 +773,10 @@ function elessarView(id, pid, name) {
             }])
         }, i.desc, i.extra, i.title)
     })
-
-    if (i.modules[2] && i.modules[2].type == "award_result_collection") {
-        let e = i.modules[2].payload;
+    
+    let index = i.modules.findIndex(cur => cur.type == "award_result_collection");
+    if (index > -1) {
+        let e = i.modules[index].payload;
         a.push({
             title: '““””' + '获奖记录'.big().bold() + '<small>(共' + e.total + '项)</small>',
             desc: '““””<strong>' + e.awards[0].ceremony.title + '</strong>\n' + e.awards[0].category.title + (e.awards[0].is_won ? '' : '(提名)'),
@@ -789,9 +790,10 @@ function elessarView(id, pid, name) {
             }
         })
     }
-
-    if (i.modules[0] && i.modules[0].type == "work_collections") {
-        let e2 = i.modules[0].payload;
+    
+    index = i.modules.findIndex(cur => cur.type == "work_collections");
+    if (index > -1) {
+        let e2 = i.modules[index].payload;
         a.push({
             col_type: 'line'
         })
@@ -854,9 +856,10 @@ function elessarView(id, pid, name) {
             }, e2.id, e2.collections[0].title)
         })*/
     }
-
-    if (i.modules[1] && i.modules[1].type == "photos") {
-        let e3 = i.modules[1].payload;
+    
+    index = i.modules.findIndex(cur => cur.type == "photos");
+    if (index > -1) {
+        let e3 = i.modules[index].payload;
         a.push({
             col_type: 'line'
         })
@@ -906,7 +909,7 @@ function elessarAwards(id, count) {
     let detailsViewConfigs = getConfig('detailsViewConfigs');
     i.awards.forEach(t => {
         l.push({
-            title: t.year.bold().big(),
+            title: (t.year+"").bold().big(),
             col_type: 'rich_text'
         })
 
