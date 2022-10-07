@@ -1,4 +1,4 @@
-let version = 202210060000;
+let version = 202210070000;
 let defaultConfigs = {
     starColor: "#ffac2d",
     chooseColor: "#FA7298",
@@ -123,7 +123,7 @@ function home() {
             setItem('update', String(version));
             confirm({
                 title: '本次更新内容',
-                content: '1.修复演职人员详情和获奖详情页面错误',
+                content: '1.榜单页面标题修改',
                 confirm: '',
                 cancel: ''
             })
@@ -1991,14 +1991,15 @@ function rankList(page, count) {
         i = l.map((e => ({
             title: '' /*'““””' + e.medium_name + '\n' + getStrongText(e.title)*/ ,
             col_type: 'card_pic_2',
-            url: $('hiker://empty/$page{fypage}#noHistory#').rule((type, id) => {
+            url: $('hiker://empty/$page{fypage}#noHistory#').rule((type, id, stitle) => {
+                setPageTitle(stitle);
                 eval(fetch(getVar("qdb_file")));
                 if (type === "playlist") {
                     douList(id, getPage(), 50);
                 } else {
                     subjectCollectionList(getPage(), 50, id);
                 }
-            }, e.type, e.id),
+            }, e.type, e.id, e.title),
             img: e.cover_url + "@Referer=" + e.cover_url,
             desc: "0"
         })));
