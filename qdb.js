@@ -1,4 +1,4 @@
-let version = 202210070000;
+let version = 202211250000;
 let defaultConfigs = {
     starColor: "#ffac2d",
     chooseColor: "#FA7298",
@@ -123,7 +123,7 @@ function home() {
             setItem('update', String(version));
             confirm({
                 title: '本次更新内容',
-                content: '1.榜单页面标题修改',
+                content: '1.添加自定义搜索不按格式不允许添加\n出现问题的重置一下快速搜索吧',
                 confirm: '',
                 cancel: ''
             })
@@ -552,7 +552,7 @@ function credits(type, id) {
             r.push({
                 title: e.name + "\n" + e.latin_name,
                 desc: e.character,
-                img: e.avatar.normal + "@Referer=" + e.avatar.narmal,
+                img: e.avatar.normal + "@Referer=" + e.avatar.normal,
                 col_type: 'movie_1_vertical_pic',
                 url: $('hiker://empty#noHistory##immersiveTheme#').rule((e) => {
                     eval(fetch(getVar("qdb_file")));
@@ -3005,6 +3005,7 @@ function quickSearchDIYModule(d, config) {
         url: $('显示名@@小程序名@@图片链接', '根据提示输入就好了\n小程序名为空则为海阔搜索').input(() => {
             let config = JSON.parse(fetch(getVar('qdb_config')));
             input = input.split('@@');
+            if(input.length != 3 || input[0] === "") return "toast://格式不对，按格式输入!";
             if (config.quickSearchConfigs.order.indexOf(input[0]) == -1) config.quickSearchConfigs.order.push(input[0]);
             config.quickSearchConfigs[input[0]] = {
                 name: input[1],
