@@ -136,7 +136,7 @@ function home() {
     let d = [];
     d.push({
         title: '',
-        img: 'https://gitcode.net/qq_41846756/hiker/-/raw/master/img/豆瓣.png',
+        img: 'https://jihulab.com/ls125781003/qingdou/-/raw/master/img/豆瓣.png',
         desc: '0',
         col_type: 'card_pic_1',
         url: $('hiker://empty#noHistory#').rule(() => {
@@ -156,7 +156,7 @@ function home() {
     })
 
     let s = ["推荐", "热门", "分类", "片单", "榜单", "将上映"];
-    let img = "https://gitcode.net/qq_41846756/hiker/-/raw/master/img/";
+    let img = "https://jihulab.com/ls125781003/qingdou/-/raw/master/img/";
     for (let i in s) {
         d.push({
             title: s[i],
@@ -1188,7 +1188,7 @@ function detailsView(type, id) {
 
     let relatedItems = [{
         title: "剧照",
-        img: "https://gitcode.net/qq_41846756/hiker/-/raw/master/img/剧照.png",
+        img: "https://jihulab.com/ls125781003/qingdou/-/raw/master/img/剧照.png",
         url: $('hiker://empty/#/$page{fypage}#noHistory#').rule((t) => {
             eval(fetch(getVar("qdb_file")));
             stillsList(t[0], t[1]);
@@ -1196,7 +1196,7 @@ function detailsView(type, id) {
         col_type: "icon_round_small_4"
     }, {
         title: "演职",
-        img: "https://gitcode.net/qq_41846756/hiker/-/raw/master/img/演职.png",
+        img: "https://jihulab.com/ls125781003/qingdou/-/raw/master/img/演职.png",
         url: $('hiker://empty/#/$page{fypage}#noHistory#').rule((t) => {
             eval(fetch(getVar("qdb_file")));
             credits(t[0], t[1]);
@@ -1204,7 +1204,7 @@ function detailsView(type, id) {
         col_type: "icon_round_small_4"
     }, {
         title: "短评",
-        img: "https://gitcode.net/qq_41846756/hiker/-/raw/master/img/短评.png",
+        img: "https://jihulab.com/ls125781003/qingdou/-/raw/master/img/短评.png",
         url: $('hiker://empty/#/$page{fypage}#noHistory#').rule((t) => {
             eval(fetch(getVar("qdb_file")));
             shortCommentList(t[0], t[1]);
@@ -1212,7 +1212,7 @@ function detailsView(type, id) {
         col_type: "icon_round_small_4"
     }, {
         title: "剧评",
-        img: "https://gitcode.net/qq_41846756/hiker/-/raw/master/img/剧评.png",
+        img: "https://jihulab.com/ls125781003/qingdou/-/raw/master/img/剧评.png",
         url: $('hiker://empty/#/$page{fypage}#noHistory#').rule((t) => {
             eval(fetch(getVar("qdb_file")));
             dramaReviewList(t[0], t[1]);
@@ -1254,7 +1254,7 @@ function detailsView(type, id) {
         });
         videoRelatedItems.push({
             title: '查看更多',
-            img: "https://gitcode.net/qq_41846756/hiker/-/raw/master/img/more.png",
+            img: "https://jihulab.com/ls125781003/qingdou/-/raw/master/img/more.png",
             col_type: "movie_2",
             url: $('hiker://empty/#/$page{fypage}#noHistory#').rule((t) => {
                 eval(fetch(getVar("qdb_file")));
@@ -1280,7 +1280,7 @@ function detailsView(type, id) {
         });
         videoRelatedItems.push({
             title: '查看更多',
-            img: "https://gitcode.net/qq_41846756/hiker/-/raw/master/img/more.png",
+            img: "https://jihulab.com/ls125781003/qingdou/-/raw/master/img/more.png",
             col_type: "movie_2",
             url: $('hiker://empty/#/$page{fypage}#noHistory#').rule((t) => {
                 eval(fetch(getVar("qdb_file")));
@@ -3150,7 +3150,7 @@ function settingPage() {
         desc: '本地依赖版本: ' + version,
         col_type: 'text_1',
         url: $('hiker://empty').lazyRule((currentVersion) => {
-            let gitfile = request("https://gitcode.net/qq_41846756/hiker/-/raw/master/qdb.js");
+            let gitfile = request("https://jihulab.com/ls125781003/qingdou/-/raw/master/qdb.js");
             eval(gitfile);
             if (version > currentVersion) {
                 return $("发现新版本,是否更新?").confirm((gitfile) => {
