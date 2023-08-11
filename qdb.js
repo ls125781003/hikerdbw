@@ -134,9 +134,52 @@ function home() {
         clearVar("qdb_config");
     }))
     let d = [];
+    
+    putVar('小程序名', MY_RULE.title);
+        var 本地 = getPath('hiker://files/rules/dzHouse/hmtl/顺搜.html');
+		if(fileExist(本地) == false) {
+			var 远程x5 = request('http://hiker.nokia.press/hikerule/rulelist.json?id=4082&auth=017c8556-c91f-5c81-ba70-78559ee5fac6');
+if (远程x5.indexOf("search_bg")>0) {
+				writeFile(本地, 远程x5);
+			} else {
+				confirm({title:'❌错误提示', content:'顺搜导入出错\n请到道长仓库手动导入顺搜.html'})
+			}
+        }
+
+        
+d.push({
+desc: '290&&list',
+url: 本地,
+col_type: 'x5_webview_single',
+extra: {ua: MOBILE_UA}
+})
+
     d.push({
+        title: '设置',
+        //img: 'https://gitcode.net/qq_41846756/hiker/-/raw/master/img/豆瓣.png',
+        img: 'https://i2.100024.xyz/2023/04/26/u04uxn.webp',
+        col_type: 'icon_2',
+        url: $('hiker://empty#noHistory#').rule(() => {
+            try {
+                setPageTitle('设置');
+                eval(fetch(getVar('qdb_file')));
+                addListener("onClose", $.toString(() => {
+                    clearVar('qdb_debug');
+                    clearVar('gitversion');
+                }))
+                settingPage();
+            } catch (e) {
+                let rule = JSON.parse(request("hiker://page/urgencyMode")).rule;
+                eval(rule);
+            }
+        })
+    })
+    
+    
+    
+    /*d.push({
         title: '',
-        img: 'https://jihulab.com/ls125781003/qingdou/-/raw/master/img/豆瓣.png',
+        img: 'https://gitcode.net/qq_41846756/hiker/-/raw/master/img/豆瓣.png',
         desc: '0',
         col_type: 'card_pic_1',
         url: $('hiker://empty#noHistory#').rule(() => {
@@ -153,10 +196,10 @@ function home() {
                 eval(rule);
             }
         })
-    })
+    })*/
 
     let s = ["推荐", "热门", "分类", "片单", "榜单", "将上映"];
-    let img = "https://jihulab.com/ls125781003/qingdou/-/raw/master/img/";
+    let img = "https://gitcode.net/qq_41846756/hiker/-/raw/master/img/";
     for (let i in s) {
         d.push({
             title: s[i],
@@ -1226,7 +1269,7 @@ function detailsView(type, id) {
 
     let relatedItems = [{
         title: "剧照",
-        img: "https://jihulab.com/ls125781003/qingdou/-/raw/master/img/剧照.png",
+        img: "https://gitcode.net/qq_41846756/hiker/-/raw/master/img/剧照.png",
         url: $('hiker://empty/#/$page{fypage}#noHistory#').rule((t) => {
             eval(fetch(getVar("qdb_file")));
             stillsList(t[0], t[1]);
@@ -1234,7 +1277,7 @@ function detailsView(type, id) {
         col_type: "icon_round_small_4"
     }, {
         title: "演职",
-        img: "https://jihulab.com/ls125781003/qingdou/-/raw/master/img/演职.png",
+        img: "https://gitcode.net/qq_41846756/hiker/-/raw/master/img/演职.png",
         url: $('hiker://empty/#/$page{fypage}#noHistory#').rule((t) => {
             eval(fetch(getVar("qdb_file")));
             credits(t[0], t[1]);
@@ -1242,7 +1285,7 @@ function detailsView(type, id) {
         col_type: "icon_round_small_4"
     }, {
         title: "短评",
-        img: "https://jihulab.com/ls125781003/qingdou/-/raw/master/img/短评.png",
+        img: "https://gitcode.net/qq_41846756/hiker/-/raw/master/img/短评.png",
         url: $('hiker://empty/#/$page{fypage}#noHistory#').rule((t) => {
             eval(fetch(getVar("qdb_file")));
             shortCommentList(t[0], t[1]);
@@ -1250,7 +1293,7 @@ function detailsView(type, id) {
         col_type: "icon_round_small_4"
     }, {
         title: "剧评",
-        img: "https://jihulab.com/ls125781003/qingdou/-/raw/master/img/剧评.png",
+        img: "https://gitcode.net/qq_41846756/hiker/-/raw/master/img/剧评.png",
         url: $('hiker://empty/#/$page{fypage}#noHistory#').rule((t) => {
             eval(fetch(getVar("qdb_file")));
             dramaReviewList(t[0], t[1]);
@@ -1292,7 +1335,7 @@ function detailsView(type, id) {
         });
         videoRelatedItems.push({
             title: '查看更多',
-            img: "https://jihulab.com/ls125781003/qingdou/-/raw/master/img/more.png",
+            img: "https://gitcode.net/qq_41846756/hiker/-/raw/master/img/more.png",
             col_type: "movie_2",
             url: $('hiker://empty/#/$page{fypage}#noHistory#').rule((t) => {
                 eval(fetch(getVar("qdb_file")));
@@ -1318,7 +1361,7 @@ function detailsView(type, id) {
         });
         videoRelatedItems.push({
             title: '查看更多',
-            img: "https://jihulab.com/ls125781003/qingdou/-/raw/master/img/more.png",
+            img: "https://gitcode.net/qq_41846756/hiker/-/raw/master/img/more.png",
             col_type: "movie_2",
             url: $('hiker://empty/#/$page{fypage}#noHistory#').rule((t) => {
                 eval(fetch(getVar("qdb_file")));
@@ -3246,7 +3289,7 @@ function settingPage() {
         desc: '本地依赖版本: ' + version,
         col_type: 'text_1',
         url: $('hiker://empty').lazyRule((currentVersion) => {
-            let gitfile = request("https://jihulab.com/ls125781003/qingdou/-/raw/master/qdb.js");
+            let gitfile = request("https://gitcode.net/qq_41846756/hiker/-/raw/master/qdb.js");
             eval(gitfile);
             if (version > currentVersion) {
                 return $("发现新版本,是否更新?").confirm((gitfile) => {
