@@ -181,7 +181,7 @@ extra: {ua: MOBILE_UA}
         title: '',
         img: 'https://ghproxy.com/https://raw.githubusercontent.com/ls125781003/hikerdbw/master/img/豆瓣.png',
         desc: '0',
-        col_type: 'card_pic_1',
+        col_type: 'text_icon',
         url: $('hiker://empty#noHistory#').rule(() => {
             try {
                 setPageTitle('设置');
