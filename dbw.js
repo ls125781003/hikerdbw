@@ -138,7 +138,7 @@ function home() {
     putVar('小程序名', MY_RULE.title);
         var 本地 = getPath('hiker://files/rules/dzHouse/hmtl/顺搜.html');
 		if(fileExist(本地) == false) {
-			var 远程x5 = request('http://hiker.nokia.press/hikerule/rulelist.json?id=4082&auth=017c8556-c91f-5c81-ba70-78559ee5fac6');
+			var 远程x5 = request('http://hiker.nokia.press/hikerule/rulelist.json?id=4082');
 if (远程x5.indexOf("search_bg")>0) {
 				writeFile(本地, 远程x5);
 			} else {
