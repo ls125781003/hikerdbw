@@ -1266,7 +1266,7 @@ function detailsView(type, id) {
             rating(type, id, ratingCount);
         }, i.subtype, i.id, i.rating ? i.rating.count : 0)
     }];
-
+6
     let relatedItems = [{
         title: "剧照",
         img: "https://ghproxy.com/https://raw.githubusercontent.com/ls125781003/hikerdbw/master/img/剧照.png",
@@ -3056,8 +3056,8 @@ function analysisVerifyModule(d) {
         d.push({
             title: '点我验证身份',
             col_type: 'text_center_1',
-            url: $('', '青豆的作者是谁？').input(() => {
-                if (input == 'Joker&&Reborn') {
+            url: $('', '此软件是什么？').input(() => {
+                if (input == '海阔视界') {
                     setItem('password', 'true');
                     confirm({
                         title: '恭喜,你已进入高级模式',
