@@ -158,7 +158,7 @@ extra: {ua: MOBILE_UA}
         title: '设置',
         //img: 'https://ghproxy.com/https://raw.githubusercontent.com/ls125781003/hikerdbw/master/img/豆瓣.png',
         img: 'https://ghproxy.com/https://raw.githubusercontent.com/ls125781003/lmtubiao/main/grey/153.png',
-        col_type: 'icon_2',
+        col_type: 'text_icon',
         url: $('hiker://empty#noHistory#').rule(() => {
             try {
                 setPageTitle('设置');
