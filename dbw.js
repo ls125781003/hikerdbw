@@ -1,4 +1,4 @@
-let version = 202304260001;
+8let version = 202304260001;
 let defaultConfigs = {
     starColor: "#ffac2d",
     chooseColor: "#FA7298",
@@ -136,7 +136,7 @@ function home() {
     let d = [];
     
     putVar('小程序名', MY_RULE.title);
-        var 本地 = getPath('hiker://files/rules/dzHouse/hmtl/顺搜.html');
+        var 本地 = getPath('hiker://files/rules/dzHouse/html/顺搜.html');
 		if(fileExist(本地) == false) {
 			var 远程x5 = request('http://hiker.nokia.press/hikerule/rulelist.json?id=4082');
 if (远程x5.indexOf("search_bg")>0) {
