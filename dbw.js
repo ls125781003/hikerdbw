@@ -151,14 +151,14 @@ if (!getVar('X5加载')) {
 } else {
     x5_height = getVar('顺搜高度', 'video')
 }
-[{
+d.push({
     desc: 'list&&' + x5_height,
     url: 本地,
     col_type: 'x5_webview_single',
     extra: {
         ua: MOBILE_UA
     }
-}]
+})
         
 /*d.push({
 desc: '290&&list',
