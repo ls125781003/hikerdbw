@@ -1,4 +1,4 @@
-let version = 2023082001;
+let version = 2023082201;
 let defaultConfigs = {
     starColor: "#ffac2d",
     chooseColor: "#FA7298",
@@ -168,7 +168,7 @@ extra: {ua: MOBILE_UA}
 })*/
 
     d.push({
-        title: '设置',
+        title: '⚙️设置',
         //img: 'https://ghproxy.com/https://raw.githubusercontent.com/ls125781003/hikerdbw/master/img/豆瓣.png',
         img: 'https://ghproxy.com/https://raw.githubusercontent.com/ls125781003/lmtubiao/main/erdi/64.png',
         col_type: 'text_icon',
