@@ -1,4 +1,4 @@
-let version = 2023082402;
+let version = 2023082403;
 let defaultConfigs = {
     starColor: "#ffac2d",
     chooseColor: "#FA7298",
@@ -84,7 +84,7 @@ let parseVideoUrlLazy = $.toString(() => {
 })
 
 let QLog = {
-    key: 'qdb_debug',
+    key: 'dbw_debug',
     print: (key, value) => {
         if (!getVar(QLog.key)) return;
         if (typeof value === 'object') {
@@ -96,12 +96,12 @@ let QLog = {
 
 //预处理
 function pre() {
-    let file = "hiker://files/rules/joker/qdb_config.js";
+    let file = "hiker://files/rules/joker/dbw_config.js";
     if (!fetch(file)) {
         writeFile(file, JSON.stringify(defaultConfigs));
     }
     putVar({
-        key: "qdb_config",
+        key: "dbw_config",
         value: file
     });
 }
@@ -130,8 +130,8 @@ function home() {
         }
     }
     addListener("onClose", $.toString(() => {
-        clearVar("qdb_file");
-        clearVar("qdb_config");
+        clearVar("dbw_file");
+        clearVar("dbw_config");
     }))
     let d = [];
     
@@ -177,7 +177,7 @@ extra: {ua: MOBILE_UA}
                 setPageTitle('设置');
                 eval(fetch(getVar('qdb_file')));
                 addListener("onClose", $.toString(() => {
-                    clearVar('qdb_debug');
+                    clearVar('dbw_debug');
                     clearVar('gitversion');
                 }))
                 settingPage();
@@ -197,9 +197,9 @@ extra: {ua: MOBILE_UA}
         url: $('hiker://empty#noHistory#').rule(() => {
             try {
                 setPageTitle('设置');
-                eval(fetch(getVar('qdb_file')));
+                eval(fetch(getVar('dbw_file')));
                 addListener("onClose", $.toString(() => {
-                    clearVar('qdb_debug');
+                    clearVar('dbw_debug');
                     clearVar('gitversion');
                 }))
                 settingPage();
@@ -240,7 +240,7 @@ function search() {
                     title: e.title,
                     url: $('hiker://empty/$page{fypage}#noHistory#')
                         .rule((type, id) => {
-                            eval(fetch(getVar("qdb_file")));
+                            eval(fetch(getVar("dbw_file")));
                             if (type === "playlist") {
                                 douList(id, getPage(), 50);
                             } else if (type == "collection" || type == "chart") {
@@ -317,31 +317,31 @@ function erji() {
     let choice = MY_URL.split('/#/')[1].split('#')[0];
     switch (choice) {
         case "推荐":
-            eval(fetch(getVar("qdb_file")));
-            findList(getPage(), 20);
+            eval(fetch(getVar("dbw_file")));
+            findList(getPage(), 10);
             break;
         case "热门":
-            eval(fetch(getVar("qdb_file")));
-            hotList(getPage(), 20);
+            eval(fetch(getVar("dbw_file")));
+            hotList(getPage(), 10);
             break;
         case "分类":
-            eval(fetch(getVar("qdb_file")));
-            classList(getPage(), 20);
+            eval(fetch(getVar("dbw_file")));
+            classList(getPage(), 15);
             break;
         case "片单":
-            eval(fetch(getVar("qdb_file")));
-            playList(getPage(), 20);
+            eval(fetch(getVar("dbw_file")));
+            playList(getPage(), 10);
             break;
         case "榜单":
-            eval(fetch(getVar("qdb_file")));
-            rankList(getPage(), 20);
+            eval(fetch(getVar("dbw_file")));
+            rankList(getPage(), 10);
             break;
         case "将上映":
-            eval(fetch(getVar("qdb_file")));
-            comingList(getPage(), 20);
+            eval(fetch(getVar("dbw_file")));
+            comingList(getPage(), 10);
             break;
         default:
-            eval(fetch(getVar("qdb_file")));
+            eval(fetch(getVar("dbw_file")));
             subjectCollectionList();
             break;
     }
@@ -378,18 +378,18 @@ function getPage() {
 //初始化配置,name为配置项名称
 function initConfigs(name, config) {
     if (!config) {
-        config = JSON.parse(fetch(getVar('qdb_config')));
+        config = JSON.parse(fetch(getVar('dbw_config')));
     }
     if (config[name] == null) {
         config[name] = defaultConfigs[name] ? defaultConfigs[name] : {};
-        writeFile(getVar('qdb_config'), JSON.stringify(config));
+        writeFile(getVar('dbw_config'), JSON.stringify(config));
     }
     return config;
 }
 
 //获取配置项
 function getConfig(name, rootConfig) {
-    let config = rootConfig ? rootConfig : JSON.parse(fetch(getVar('qdb_config')));
+    let config = rootConfig ? rootConfig : JSON.parse(fetch(getVar('dbw_config')));
     if (name) {
         if (config[name] == null) {
             config = initConfigs(name, config);
@@ -456,7 +456,7 @@ function rating(type, id, ratingCount) {
     //r += '<font color="grey">' + (s.total != 0 ? '共' + s.total + '项' : '暂无') + '</font><br/>';
     let r2 = '';
     s.awards.forEach(e => {
-        r2 += (e.ceremony.title + '(' + e.ceremony.year + ')').big().bold() + '<small>(<a href="hiker://empty#noHistory#@rule=js:eval(fetch(getVar(`qdb_file`)));awardView(`' + e.ceremony.id + '`,`' + e.ceremony.title + '`);">查看详情</a>)</small>' + '<br/>';
+        r2 += (e.ceremony.title + '(' + e.ceremony.year + ')').big().bold() + '<small>(<a href="hiker://empty#noHistory#@rule=js:eval(fetch(getVar(`dbw_file`)));awardView(`' + e.ceremony.id + '`,`' + e.ceremony.title + '`);">查看详情</a>)</small>' + '<br/>';
         e.categories.forEach(item => {
             r2 += (item.category.title + (item.is_won ? '' : '(提名)') + '&nbsp;').fontcolor("grey");
             r2 += item.celebrities.map(celebrity => celebrity.name).join('&nbsp;/&nbsp;');
@@ -502,7 +502,7 @@ function awardView(id, name) {
             desc: '共' + e.items_count + '部',
             img: e.cover_url + '@Referer=' + e.cover_url,
             url: $('hiker://empty#noHistory#').rule((id) => {
-                eval(fetch(getVar('qdb_file')));
+                eval(fetch(getVar('dbw_file')));
                 douList(id);
             }, e.id)
         })
@@ -530,7 +530,7 @@ function awardView(id, name) {
             col_type: 'movie_3',
             img: e.pic.normal + '@Referer=' + e.pic.normal,
             url: $('hiker://empty#noHistory#').rule((id, name) => {
-                eval(fetch(getVar('qdb_file')));
+                eval(fetch(getVar('dbw_file')));
                 awardView(id, name);
             }, e.id, e.title)
         })
@@ -617,7 +617,7 @@ function credits(type, id) {
                 img: e.avatar.normal + "@Referer=" + e.avatar.normal,
                 col_type: 'movie_1_vertical_pic',
                 url: $('hiker://empty#noHistory##immersiveTheme#').rule((e) => {
-                    eval(fetch(getVar("qdb_file")));
+                    eval(fetch(getVar("dbw_file")));
                     elessarView(e.uri.split("subject_id=")[1], e.id, e.name);
                 }, e)
             })
@@ -736,7 +736,7 @@ function dramaReviewList(type, id) {
             col_type: "avatar"
         })
         l.push({
-            title: "<strong>" + e.title + "</strong><br/>" + e.abstract + '   <small>(<a href="hiker://empty#noHistory#@rule=js:eval(fetch(getVar(`qdb_file`)));dramaReviewView(' + e.id + ')">更多</a>)</small>' + (t ? '<br/><small>看过 <font color=' + starColor + '>' + t + "</font></small>" : "") + '<br/><small><font color="grey">' + i + r + o + "</font></small>",
+            title: "<strong>" + e.title + "</strong><br/>" + e.abstract + '   <small>(<a href="hiker://empty#noHistory#@rule=js:eval(fetch(getVar(`dbw_file`)));dramaReviewView(' + e.id + ')">更多</a>)</small>' + (t ? '<br/><small>看过 <font color=' + starColor + '>' + t + "</font></small>" : "") + '<br/><small><font color="grey">' + i + r + o + "</font></small>",
             col_type: "rich_text"
         })
         l.push({
@@ -844,7 +844,7 @@ function elessarView(id, pid, name) {
             desc: '““””<strong>' + e.awards[0].ceremony.title + '</strong>\n' + e.awards[0].category.title + (e.awards[0].is_won ? '' : '(提名)'),
             col_type: 'text_center_1',
             url: $('hiker://empty/#/$page{fypage}#noHistory#').rule((id, count) => {
-                eval(fetch(getVar('qdb_file')));
+                eval(fetch(getVar('dbw_file')));
                 elessarAwards(id, count);
             }, e.id, e.total),
             extra: {
@@ -890,7 +890,7 @@ function elessarView(id, pid, name) {
                 eval('urlParams = ' + useConfig);
             } else {
                 urlParams.url = $("hiker://empty#noHistory##immersiveTheme#" + '?type=' + type + '&id=' + id).rule((type, id, title, useConfig) => {
-                    eval(fetch(getVar("qdb_file")));
+                    eval(fetch(getVar("dbw_file")));
                     if (type === "playlist") {
                         douList(id, getPage(), 50);
                     } else {
@@ -913,7 +913,7 @@ function elessarView(id, pid, name) {
             col_type: 'movie_3',
             url: $('hiker://empty/#/$page{fypage}#noHistory#')
                 .rule((id, type) => {
-                eval(fetch(getVar('qdb_file')));
+                eval(fetch(getVar('dbw_file')));
                 elessarWorks(id, type);
             }, e2.id, e2.collections[0].title)
         })*/
@@ -929,7 +929,7 @@ function elessarView(id, pid, name) {
             title: '““””' + '演员照片'.big().bold() + ('(共' + e3.total + '张)').small(),
             col_type: 'text_center_1',
             url: $('hiker://empty/#/$page{fypage}#noHistory#').rule((pid) => {
-                eval(fetch(getVar('qdb_file')));
+                eval(fetch(getVar('dbw_file')));
                 elessarPhotos(pid);
             }, pid),
             extra: {
@@ -955,7 +955,7 @@ function elessarView(id, pid, name) {
             desc: '0',
             url: $('hiker://empty/#/$page{fypage}#noHistory#')
                 .rule((pid) => {
-                eval(fetch(getVar('qdb_file')));
+                eval(fetch(getVar('dbw_file')));
                 elessarPhotos(pid);
             }, pid)
         })*/
@@ -1048,7 +1048,7 @@ function elessarWorks(id, type) {
             eval('urlParams = ' + useConfig);
         } else {
             urlParams.url = $("hiker://empty#noHistory##immersiveTheme#" + '?type=' + type + '&id=' + id).rule((type, id, title, useConfig) => {
-                eval(fetch(getVar("qdb_file")));
+                eval(fetch(getVar("dbw_file")));
                 if (type === "playlist") {
                     douList(id, getPage(), 50);
                 } else {
@@ -1251,7 +1251,7 @@ function detailsView(type, id) {
         url: $('hiker://empty#noHistory#').rule(() => {
             setPageTitle('高级功能');
             let d = [];
-            eval(request(getVar('qdb_file')));
+            eval(request(getVar('dbw_file')));
             analysisVerifyModule(d);
             setResult(d);
         }),
@@ -1281,7 +1281,7 @@ function detailsView(type, id) {
             lineVisible: false
         },
         url: $('hiker://empty/#/$page{fypage}#noHistory#').rule((type, id, ratingCount) => {
-            eval(fetch(getVar("qdb_file")));
+            eval(fetch(getVar("dbw_file")));
             rating(type, id, ratingCount);
         }, i.subtype, i.id, i.rating ? i.rating.count : 0)
     }];
@@ -1290,7 +1290,7 @@ function detailsView(type, id) {
         title: "剧照",
         img: "https://ghproxy.com/https://raw.githubusercontent.com/ls125781003/hikerdbw/master/img/剧照.png",
         url: $('hiker://empty/#/$page{fypage}#noHistory#').rule((t) => {
-            eval(fetch(getVar("qdb_file")));
+            eval(fetch(getVar("dbw_file")));
             stillsList(t[0], t[1]);
         }, [i.subtype, i.id]),
         col_type: "icon_round_small_4"
@@ -1298,7 +1298,7 @@ function detailsView(type, id) {
         title: "演职",
         img: "https://ghproxy.com/https://raw.githubusercontent.com/ls125781003/hikerdbw/master/img/演职.png",
         url: $('hiker://empty/#/$page{fypage}#noHistory#').rule((t) => {
-            eval(fetch(getVar("qdb_file")));
+            eval(fetch(getVar("dbw_file")));
             credits(t[0], t[1]);
         }, [i.subtype, i.id]),
         col_type: "icon_round_small_4"
@@ -1306,7 +1306,7 @@ function detailsView(type, id) {
         title: "短评",
         img: "https://ghproxy.com/https://raw.githubusercontent.com/ls125781003/hikerdbw/master/img/短评.png",
         url: $('hiker://empty/#/$page{fypage}#noHistory#').rule((t) => {
-            eval(fetch(getVar("qdb_file")));
+            eval(fetch(getVar("dbw_file")));
             shortCommentList(t[0], t[1]);
         }, [i.subtype, i.id]),
         col_type: "icon_round_small_4"
@@ -1314,7 +1314,7 @@ function detailsView(type, id) {
         title: "剧评",
         img: "https://ghproxy.com/https://raw.githubusercontent.com/ls125781003/hikerdbw/master/img/剧评.png",
         url: $('hiker://empty/#/$page{fypage}#noHistory#').rule((t) => {
-            eval(fetch(getVar("qdb_file")));
+            eval(fetch(getVar("dbw_file")));
             dramaReviewList(t[0], t[1]);
         }, [i.subtype, i.id]),
         col_type: "icon_round_small_4"
@@ -1357,7 +1357,7 @@ function detailsView(type, id) {
             img: "https://ghproxy.com/https://raw.githubusercontent.com/ls125781003/hikerdbw/master/img/more.png",
             col_type: "movie_2",
             url: $('hiker://empty/#/$page{fypage}#noHistory#').rule((t) => {
-                eval(fetch(getVar("qdb_file")));
+                eval(fetch(getVar("dbw_file")));
                 trailers(t[0], t[1]);
             }, [i.subtype, i.id]),
         });
@@ -1383,13 +1383,13 @@ function detailsView(type, id) {
             img: "https://ghproxy.com/https://raw.githubusercontent.com/ls125781003/hikerdbw/master/img/more.png",
             col_type: "movie_2",
             url: $('hiker://empty/#/$page{fypage}#noHistory#').rule((t) => {
-                eval(fetch(getVar("qdb_file")));
+                eval(fetch(getVar("dbw_file")));
                 videoComment(t[0], t[1]);
             }, [i.subtype, i.id]),
         });
     }
 
-    let config = JSON.parse(fetch(getVar('qdb_config')));
+    let config = JSON.parse(fetch(getVar('dbw_config')));
 
     let analysisConfigs = getConfig('analysisConfigs', config);
     let extraConfig = analysisConfigs[analysisConfigs.use].extra || '{}';
@@ -1482,7 +1482,7 @@ function detailsView(type, id) {
     })
     be([{
         func: function(obj){
-            eval(fetch(getVar('qdb_file')));
+            eval(fetch(getVar('dbw_file')));
             let res = getDoubanRes(obj.url);
             
             let detailsViewConfigs = getConfig('detailsViewConfigs');
@@ -1497,7 +1497,7 @@ function detailsView(type, id) {
                     eval('urlParams = ' + useConfig);
                 } else {
                     urlParams.url = $("hiker://empty#noHistory##immersiveTheme#" + '?type=' + type + '&id=' + id).rule((type, id, title, useConfig) => {
-                        eval(fetch(getVar("qdb_file")));
+                        eval(fetch(getVar("dbw_file")));
                         if (type === "playlist") {
                             douList(id, getPage(), 50);
                         } else {
@@ -1520,7 +1520,7 @@ function detailsView(type, id) {
                 title: "““””<big><strong>相关推荐</strong></big>",
                 col_type: "text_center_1",
                 url: $('hiker://empty/#noHistory#').rule((t) => {
-                    eval(fetch(getVar("qdb_file")));
+                    eval(fetch(getVar("dbw_file")));
                     recommendations(t[0], t[1]);
                 }, [obj.type, obj.id]),
                 extra: {
@@ -1617,7 +1617,7 @@ function findList(page, count) {
             eval('urlParams = ' + useConfig);
         } else {
             urlParams.url = $(baseUrl + "#noHistory#" + '?type=' + type + '&id=' + id).rule((type, id, title, useConfig) => {
-                eval(fetch(getVar("qdb_file")));
+                eval(fetch(getVar("dbw_file")));
                 if (type === "playlist") {
                     douList(id, getPage(), 50);
                 } else {
@@ -1766,7 +1766,7 @@ function hotList(page, count) {
             eval('urlParams = ' + useConfig);
         } else {
             urlParams.url = $("hiker://empty#noHistory##immersiveTheme#" + '?type=' + type + '&id=' + id).rule((type, id, title, useConfig) => {
-                eval(fetch(getVar("qdb_file")));
+                eval(fetch(getVar("dbw_file")));
                 if (type === "playlist") {
                     douList(id, getPage(), 50);
                 } else {
@@ -2006,7 +2006,7 @@ function playList(page, count) {
     let i = l.map((e => ({
         title: e.title,
         url: $('hiker://empty/$page{fypage}#noHistory#').rule((type, id) => {
-            eval(fetch(getVar("qdb_file")));
+            eval(fetch(getVar("dbw_file")));
             if (type === "playlist") {
                 douList(id, getPage(), 50);
             } else {
@@ -2151,7 +2151,7 @@ function rankList(page, count) {
             col_type: 'card_pic_2',
             url: $('hiker://empty/$page{fypage}#noHistory#').rule((type, id, stitle) => {
                 setPageTitle(stitle);
-                eval(fetch(getVar("qdb_file")));
+                eval(fetch(getVar("dbw_file")));
                 if (type === "playlist") {
                     douList(id, getPage(), 50);
                 } else {
@@ -2302,7 +2302,7 @@ function comingList(page, count) {
             eval('urlParams = ' + useConfig);
         } else {
             urlParams.url = $("hiker://empty#noHistory##immersiveTheme#" + '?type=' + type + '&id=' + id).rule((type, id, title, useConfig) => {
-                eval(fetch(getVar("qdb_file")));
+                eval(fetch(getVar("dbw_file")));
                 if (type === "playlist") {
                     douList(id, getPage(), 50);
                 } else {
@@ -2437,7 +2437,7 @@ function subjectCollectionList(page, count, id) {
             eval('urlParams = ' + useConfig);
         } else {
             urlParams.url = $("hiker://empty#noHistory##immersiveTheme#" + '?type=' + type + '&id=' + id).rule((type, id, title, useConfig) => {
-                eval(fetch(getVar("qdb_file")));
+                eval(fetch(getVar("dbw_file")));
                 if (type === "playlist") {
                     douList(id, getPage(), 50);
                 } else {
@@ -2535,7 +2535,7 @@ function douList(id, page, count) {
             eval('urlParams = ' + useConfig);
         } else {
             urlParams.url = $("hiker://empty#noHistory##immersiveTheme#" + '?type=' + type + '&id=' + id).rule((type, id, title, useConfig) => {
-                eval(fetch(getVar("qdb_file")));
+                eval(fetch(getVar("dbw_file")));
                 if (type === "playlist") {
                     douList(id, getPage(), 50);
                 } else {
@@ -2622,7 +2622,7 @@ function modeEditPage(d, configKey, params) {
         title: '保存',
         col_type: 'text_center_1',
         url: $().lazyRule((configKey, params) => {
-            let config = JSON.parse(request(getVar('qdb_config')))
+            let config = JSON.parse(request(getVar('dbw_config')))
             let name = getVar(params.key, "");
             config[configKey].use = name
             if (!config[configKey][name]) config[configKey][name] = {}
@@ -2633,7 +2633,7 @@ function modeEditPage(d, configKey, params) {
                 let data = datas[dataKey]
                 config[configKey][name][dataKey] = getVar(data.key, "");
             }
-            writeFile(getVar('qdb_config'), JSON.stringify(config))
+            writeFile(getVar('dbw_config'), JSON.stringify(config))
             back();
             return 'toast://保存成功'
         }, configKey, params)
@@ -2677,7 +2677,7 @@ function detailViewModeModule(d, detailsViewConfigs) {
         d.push({
             title: configKey === detailsViewConfigs.use ? "““" + configKey + "””" : configKey,
             url: $("hiker://empty#noLoading#").lazyRule(configKey => {
-                let config = JSON.parse(request(getVar('qdb_config')))
+                let config = JSON.parse(request(getVar('dbw_config')))
                 if (config.detailsViewConfigs.use === configKey) {
                     putVar("input_config_type", '影片详情页面配置')
                     putVar("input_name", configKey)
@@ -2686,7 +2686,7 @@ function detailViewModeModule(d, detailsViewConfigs) {
                     return 'hiker://page/setting-editor?rule=豆瓣网'
                 }
                 config.detailsViewConfigs.use = configKey
-                writeFile(getVar('qdb_config'), JSON.stringify(config))
+                writeFile(getVar('dbw_config'), JSON.stringify(config))
                 refreshPage(false);
                 return 'toast://切换成功'
             }, configKey),
@@ -2700,7 +2700,7 @@ function detailViewModeModule(d, detailsViewConfigs) {
         title: '➕',
         col_type: 'flex_button',
         url: $().rule(() => {
-            eval(request(getVar('qdb_file')))
+            eval(request(getVar('dbw_file')))
             let d = [];
             setPageTitle("请输入影片详情页信息")
             detailViewModeEditPage(d)
@@ -2713,11 +2713,11 @@ function detailViewModeModule(d, detailsViewConfigs) {
         url: $(Object.keys(detailsViewConfigs).filter(configKey => configKey !== 'use' && configKey !== '默认'), 2)
             .select(() => {
                 if (input === '默认') return 'toast://默认配置无法删除！'
-                let config = JSON.parse(request(getVar('qdb_config')))
+                let config = JSON.parse(request(getVar('dbw_config')))
                 if (input === config.detailsViewConfigs.use) return 'toast://该配置正在使用，无法删除！'
                 return $('确认删除"' + input + '"？').confirm((config, configKey) => {
                     delete config.detailsViewConfigs[configKey]
-                    writeFile(getVar('qdb_config'), JSON.stringify(config))
+                    writeFile(getVar('dbw_config'), JSON.stringify(config))
                     refreshPage(false);
                     return 'toast://删除' + configKey + '成功'
                 }, config, input)
@@ -2728,9 +2728,9 @@ function detailViewModeModule(d, detailsViewConfigs) {
         col_type: 'flex_button',
         url: $(Object.keys(detailsViewConfigs).filter(configKey => configKey !== 'use'), 2).select(() => {
             // if (input === '默认') return 'toast://默认配置无法编辑！'
-            let config = JSON.parse(request(getVar('qdb_config')))
+            let config = JSON.parse(request(getVar('dbw_config')))
             return $().rule((config, configKey) => {
-                eval(request(getVar('qdb_file')))
+                eval(request(getVar('dbw_file')))
                 let d = [];
                 setPageTitle("编辑详情页代码")
                 putVar("input_name", configKey)
@@ -2746,13 +2746,13 @@ function detailViewModeModule(d, detailsViewConfigs) {
         col_type: 'flex_button',
         url: $("", "请输入口令").input(() => {
             if (!input.includes("影片详情页面配置")) return "toast://该口令不是影片详情页面配置";
-            eval(request(getVar('qdb_file')))
+            eval(request(getVar('dbw_file')))
             let importConfigs = ConfigTool.import(input);
             QLog.print('dv.importConfigs', importConfigs)
             if (!importConfigs) return "toast://似乎出了错，请尝试再次导入～";
             return $().rule((importConfigs) => {
                 let d = [];
-                eval(request(getVar('qdb_file')))
+                eval(request(getVar('dbw_file')))
                 putVar("input_name", importConfigs.name)
                 putVar("input_code", importConfigs.data.config)
                 putVar("input_setting_code", importConfigs.data.setting)
@@ -2766,14 +2766,14 @@ function detailViewModeModule(d, detailsViewConfigs) {
         col_type: 'flex_button',
         url: $(Object.keys(detailsViewConfigs).filter(configKey => configKey !== 'use'), 2).select(() => {
             // if (input === '默认') return 'toast://默认配置无法编辑！'
-            eval(request(getVar('qdb_file')))
+            eval(request(getVar('dbw_file')))
             let config = getConfig();
             let selectConfig = {
                 name: input,
                 data: config.detailsViewConfigs[input]
             }
             return $(ConfigTool.encTypeList, 2).select((selectConfig) => {
-                eval(request(getVar('qdb_file')))
+                eval(request(getVar('dbw_file')))
                 return ConfigTool.toClipboard(ConfigTool.export(selectConfig.name, selectConfig, "影片详情页面配置", input))
             }, selectConfig)
         })
@@ -2962,7 +2962,7 @@ function analysisModeModule(d, analysisConfigs) {
         d.push({
             title: configKey === analysisConfigs.use ? "““" + configKey + "””" : configKey,
             url: $("hiker://empty#noLoading#").lazyRule(configKey => {
-                let config = JSON.parse(request(getVar('qdb_config')))
+                let config = JSON.parse(request(getVar('dbw_config')))
                 if (config.analysisConfigs.use === configKey) {
                     putVar("input_config_type", '解析插件配置')
                     putVar("input_name", configKey)
@@ -2972,7 +2972,7 @@ function analysisModeModule(d, analysisConfigs) {
                     return 'hiker://page/setting-editor?rule=豆瓣网'
                 }
                 config.analysisConfigs.use = configKey
-                writeFile(getVar('qdb_config'), JSON.stringify(config))
+                writeFile(getVar('dbw_config'), JSON.stringify(config))
                 refreshPage(false);
                 return 'toast://切换成功'
             }, configKey),
@@ -2986,7 +2986,7 @@ function analysisModeModule(d, analysisConfigs) {
         title: '➕',
         col_type: 'flex_button',
         url: $().rule(() => {
-            eval(request(getVar('qdb_file')))
+            eval(request(getVar('dbw_file')))
             let d = [];
             setPageTitle("请输入解析代码")
             analysisModeEditPage(d)
@@ -2999,7 +2999,7 @@ function analysisModeModule(d, analysisConfigs) {
         url: $(Object.keys(analysisConfigs).filter(configKey => configKey !== 'use' && configKey !== '不解析' && configKey !== '断插'), 2)
             .select(() => {
                 if (input === '不解析' && input === '断插') return 'toast://默认解析无法删除！'
-                let config = JSON.parse(request(getVar('qdb_config')))
+                let config = JSON.parse(request(getVar('dbw_config')))
                 if (input === config.analysisConfigs.use) return 'toast://该解析正在使用，无法删除！'
                 return $('确认删除"' + input + '"？').confirm((config, configKey) => {
                     delete config.analysisConfigs[configKey]
@@ -3015,9 +3015,9 @@ function analysisModeModule(d, analysisConfigs) {
         url: $(Object.keys(analysisConfigs).filter(configKey => configKey !== 'use'), 2)
             .select(() => {
                 // if (input === '不解析' && input === '断插') return 'toast://默认解析无法编辑！'
-                let config = JSON.parse(request(getVar('qdb_config')))
+                let config = JSON.parse(request(getVar('dbw_config')))
                 return $().rule((config, configKey) => {
-                    eval(request(getVar('qdb_file')))
+                    eval(request(getVar('dbw_file')))
                     let d = [];
                     setPageTitle("编辑解析代码")
                     putVar("input_name", configKey)
@@ -3034,13 +3034,13 @@ function analysisModeModule(d, analysisConfigs) {
         col_type: 'flex_button',
         url: $("", "请输入口令").input(() => {
             if (!input.includes("解析插件配置")) return "toast://该口令不是解析插件配置";
-            eval(request(getVar('qdb_file')))
+            eval(request(getVar('dbw_file')))
             let importConfigs = ConfigTool.import(input);
             QLog.print('analysis.importConfigs', importConfigs)
             if (!importConfigs) return "toast://似乎出了错，请尝试再次导入～";
             return $().rule((importConfigs) => {
                 let d = [];
-                eval(request(getVar('qdb_file')))
+                eval(request(getVar('dbw_file')))
                 putVar("input_name", importConfigs.name)
                 putVar("input_code", importConfigs.data.config)
                 putVar("input_extra", importConfigs.data.extra)
@@ -3055,14 +3055,14 @@ function analysisModeModule(d, analysisConfigs) {
         col_type: 'flex_button',
         url: $(Object.keys(analysisConfigs).filter(configKey => configKey !== 'use'), 2).select(() => {
             // if (input === '默认') return 'toast://默认配置无法编辑！'
-            eval(request(getVar('qdb_file')))
+            eval(request(getVar('dbw_file')))
             let config = getConfig();
             let selectConfig = {
                 name: input,
                 data: config.analysisConfigs[input]
             }
             return $(ConfigTool.encTypeList, 2).select((selectConfig) => {
-                eval(request(getVar('qdb_file')))
+                eval(request(getVar('dbw_file')))
                 return ConfigTool.toClipboard(ConfigTool.export(selectConfig.name, selectConfig, "解析插件配置", input))
             }, selectConfig)
         })
@@ -3091,7 +3091,7 @@ function analysisVerifyModule(d) {
             })
         })
     } else {
-        eval(request(getVar('qdb_file')));
+        eval(request(getVar('dbw_file')));
         analysisSettingModule(d);
     }
 }
@@ -3139,7 +3139,7 @@ function quickSearchDIYModule(d, config) {
         }
         quickSearchConfigs.order = order;
         config.quickSearchConfigs.order = order;
-        writeFile(getVar('qdb_config'), JSON.stringify(config))
+        writeFile(getVar('dbw_config'), JSON.stringify(config))
     }*/
     d.push({
         title: '自定义快速搜索'.bold(),
@@ -3161,7 +3161,7 @@ function quickSearchDIYModule(d, config) {
         title: '➕️',
         col_type: 'flex_button',
         url: $('显示名@@小程序名@@图片链接', '根据提示输入就好了\n小程序名为空则为海阔搜索').input(() => {
-            let config = JSON.parse(fetch(getVar('qdb_config')));
+            let config = JSON.parse(fetch(getVar('dbw_config')));
             input = input.split('@@');
             if(input.length != 3 || input[0] === "") return "toast://格式不对，按格式输入!";
             if (config.quickSearchConfigs.order.indexOf(input[0]) == -1) config.quickSearchConfigs.order.push(input[0]);
@@ -3169,7 +3169,7 @@ function quickSearchDIYModule(d, config) {
                 name: input[1],
                 pic: input[2]
             };
-            writeFile(getVar('qdb_config'), JSON.stringify(config));
+            writeFile(getVar('dbw_config'), JSON.stringify(config));
             refreshPage(false);
             return 'toast://添加成功';
         })
@@ -3178,12 +3178,12 @@ function quickSearchDIYModule(d, config) {
         title: '➖',
         col_type: 'flex_button',
         url: $(quickSearchConfigs.order, 2).select(() => {
-            let config = JSON.parse(request(getVar('qdb_config')))
+            let config = JSON.parse(request(getVar('dbw_config')))
             return $('确认删除"' + input + '"？').confirm((config, configKey) => {
                 let index = config.quickSearchConfigs.order.indexOf(configKey);
                 config.quickSearchConfigs.order.splice(index, 1);
                 delete config.quickSearchConfigs[configKey]
-                writeFile(getVar('qdb_config'), JSON.stringify(config))
+                writeFile(getVar('dbw_config'), JSON.stringify(config))
                 refreshPage(false);
                 return 'toast://删除' + configKey + '成功'
             }, config, input)
@@ -3193,7 +3193,7 @@ function quickSearchDIYModule(d, config) {
         title: '📝',
         col_type: 'flex_button',
         url: $(quickSearchConfigs.order, 2).select(() => {
-            let config = JSON.parse(request(getVar('qdb_config')));
+            let config = JSON.parse(request(getVar('dbw_config')));
             let quickSearchConfigs = config.quickSearchConfigs;
             let dtext = input + '@@' + quickSearchConfigs[input].name + '@@' + quickSearchConfigs[input].pic;
             return $(dtext, '请修改').input((config, raw) => {
@@ -3208,7 +3208,7 @@ function quickSearchDIYModule(d, config) {
                     name: input[1],
                     pic: input[2]
                 };
-                writeFile(getVar('qdb_config'), JSON.stringify(config));
+                writeFile(getVar('dbw_config'), JSON.stringify(config));
                 refreshPage(false);
                 return 'toast://修改成功';
             }, config, input)
@@ -3223,7 +3223,7 @@ function quickSearchDIYModule(d, config) {
                 clearVar('op');
             }))
             if (getVar('json') == "") {
-                let config = JSON.parse(request(getVar('qdb_config')));
+                let config = JSON.parse(request(getVar('dbw_config')));
                 let quickSearchConfigs = config.quickSearchConfigs;
                 putVar('json', JSON.stringify(quickSearchConfigs));
             }
@@ -3234,9 +3234,9 @@ function quickSearchDIYModule(d, config) {
                 title: '分别点击两项以交换顺序\n‘‘排序完毕后点我保存排序,否则排序不生效’’',
                 col_type: 'text_center_1',
                 url: $('#noLoading#').lazyRule(() => {
-                    let config = JSON.parse(fetch(getVar('qdb_config')));
+                    let config = JSON.parse(fetch(getVar('dbw_config')));
                     config.quickSearchConfigs = JSON.parse(getVar('json'));
-                    writeFile(getVar('qdb_config'), JSON.stringify(config));
+                    writeFile(getVar('dbw_config'), JSON.stringify(config));
                     back(true);
                     return 'toast://修改成功'
                 })
@@ -3288,9 +3288,9 @@ function quickSearchDIYModule(d, config) {
         title: '⚙️',
         col_type: 'flex_button',
         url: $(quickSearchConfigs['mode'] || "", '请正确输入组件样式\n建议值:flex_button scroll_button icon_round_small_4 icon_small_4').input(() => {
-            let config = JSON.parse(request(getVar('qdb_config')));
+            let config = JSON.parse(request(getVar('dbw_config')));
             config.quickSearchConfigs.mode = input;
-            writeFile(getVar('qdb_config'), JSON.stringify(config));
+            writeFile(getVar('dbw_config'), JSON.stringify(config));
             refreshPage(false);
             return 'toast://样式修改成功'
         })
@@ -3299,8 +3299,8 @@ function quickSearchDIYModule(d, config) {
 
 //设置页面
 function settingPage() {
-    //eval(fetch(getVar('qdb_file')));
-    let conf = JSON.parse(fetch(getVar('qdb_config')));
+    //eval(fetch(getVar('dbw_file')));
+    let conf = JSON.parse(fetch(getVar('dbw_config')));
     let d = [];
 
     d.push({
@@ -3328,9 +3328,9 @@ function settingPage() {
         desc: '““””<font color=' + starColor + '>' + '★★★★★</font>',
         col_type: 'text_1',
         url: $(starColor, '别忘了#').input(() => {
-            let config = JSON.parse(fetch(getVar('qdb_config')));
+            let config = JSON.parse(fetch(getVar('dbw_config')));
             config.starColor = input;
-            writeFile(getVar('qdb_config'), JSON.stringify(config));
+            writeFile(getVar('dbw_config'), JSON.stringify(config));
             refreshPage();
             return "toast://设置更改已保存";
         })
@@ -3341,9 +3341,9 @@ function settingPage() {
         desc: '““””<font color=' + chooseColor + '>' + '我是预览效果</font>',
         col_type: 'text_1',
         url: $(chooseColor, '别忘了#').input(() => {
-            let config = JSON.parse(fetch(getVar('qdb_config')));
+            let config = JSON.parse(fetch(getVar('dbw_config')));
             config.chooseColor = input;
-            writeFile(getVar('qdb_config'), JSON.stringify(config));
+            writeFile(getVar('dbw_config'), JSON.stringify(config));
             refreshPage();
             return "toast://设置更改已保存";
         })
@@ -3373,7 +3373,7 @@ function settingPage() {
         desc: '导入详情配置和解析配置出错时请打开此模式',
         col_type: 'text_1',
         url: $('hiker://empty').lazyRule(() => {
-            eval(fetch(getVar('qdb_file')));
+            eval(fetch(getVar('dbw_file')));
             putVar(QLog.key, 'true');
             confirm({
                 title: '已打开调试模式',
@@ -3406,15 +3406,15 @@ function settingPage() {
                         item = 'all';
                         break;
                 }
-                eval(fetch(getVar('qdb_file')));
+                eval(fetch(getVar('dbw_file')));
                 if (item == 'all') {
-                    writeFile(getVar('qdb_config'), JSON.stringify(defaultConfigs));
+                    writeFile(getVar('dbw_config'), JSON.stringify(defaultConfigs));
                     refreshPage();
                     return "toast://已" + sel;
                 } else {
-                    let config = JSON.parse(fetch(getVar('qdb_config')));
+                    let config = JSON.parse(fetch(getVar('dbw_config')));
                     config[item] = defaultConfigs[item];
-                    writeFile(getVar('qdb_config'), JSON.stringify(config));
+                    writeFile(getVar('dbw_config'), JSON.stringify(config));
                     refreshPage();
                     return "toast://已" + sel;
                 }
@@ -3444,7 +3444,7 @@ function videoUrlsModule(d, type, id, col, lazy, _res, extra) {
                     try {
                         setPagePicUrl(pic);
                     } catch (e) {}
-                    eval(fetch(getVar("qdb_file")));
+                    eval(fetch(getVar("dbw_file")));
                     let urls = getTvUrls(id, e.id);
                     lazy = $("").lazyRule(lazy => {
                         let resultUrl = "toast://解析失败";
