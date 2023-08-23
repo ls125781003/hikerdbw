@@ -1,4 +1,4 @@
-let version = 2023082302;
+let version = 2023082401;
 let defaultConfigs = {
     starColor: "#ffac2d",
     chooseColor: "#FA7298",
@@ -326,7 +326,7 @@ function erji() {
             break;
         case "分类":
             eval(fetch(getVar("qdb_file")));
-            classList(getPage(), 15);
+            classList(getPage(), 10);
             break;
         case "片单":
             eval(fetch(getVar("qdb_file")));
