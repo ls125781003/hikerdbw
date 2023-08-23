@@ -1,4 +1,4 @@
-let version = 2023082403;
+let version = 2023082404;
 let defaultConfigs = {
     starColor: "#ffac2d",
     chooseColor: "#FA7298",
