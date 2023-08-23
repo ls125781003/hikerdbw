@@ -13,7 +13,7 @@ let defaultConfigs = {
     detailsViewConfigs: {
         use: "默认",
         "默认": {
-            config: "eval(fetch(getVar('qdb_file')));detailsView(type, id);"
+            config: "eval(fetch(getVar('dbw_file')));detailsView(type, id);"
         }
     },
     analysisConfigs: {
@@ -63,7 +63,7 @@ let defaultConfigs = {
     }
 }
 let parseVideoUrlLazy = $.toString(() => {
-    eval(request(getVar('qdb_file')));
+    eval(request(getVar('dbw_file')));
     /**
      * 这下面就是拿解析配置出来 eval 执行，最终获得插件解析后的视频 url
      */
@@ -175,7 +175,7 @@ extra: {ua: MOBILE_UA}
         url: $('hiker://empty#noHistory#').rule(() => {
             try {
                 setPageTitle('设置');
-                eval(fetch(getVar('qdb_file')));
+                eval(fetch(getVar('dbw_file')));
                 addListener("onClose", $.toString(() => {
                     clearVar('dbw_debug');
                     clearVar('gitversion');
@@ -256,7 +256,7 @@ function search() {
                 title: e.title,
                 url: $('hiker://empty/$page{fypage}#noHistory#')
                     .rule((type, id) => {
-                        eval(fetch(getVar("qdb_file")));
+                        eval(fetch(getVar("dbw_file")));
                         if (type === "playlist") {
                             douList(id, getPage(), 50);
                         } else if (type == "collection" || type == "chart") {
@@ -276,7 +276,7 @@ function search() {
             } else {
                 urlParams.url = $("hiker://empty#noHistory##immersiveTheme#" + '?type=' + type + '&id=' + id)
                     .rule((type, id, title, useConfig) => {
-                        eval(fetch(getVar("qdb_file")));
+                        eval(fetch(getVar("dbw_file")));
                         if (type === "playlist") {
                             douList(id, getPage(), 50);
                         } else {
@@ -326,7 +326,7 @@ function erji() {
             break;
         case "分类":
             eval(fetch(getVar("dbw_file")));
-            classList(getPage(), 15);
+            classList(getPage(), 10);
             break;
         case "片单":
             eval(fetch(getVar("dbw_file")));
