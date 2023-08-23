@@ -1,4 +1,4 @@
-let version = 2023082401;
+let version = 2023082402;
 let defaultConfigs = {
     starColor: "#ffac2d",
     chooseColor: "#FA7298",
@@ -318,27 +318,27 @@ function erji() {
     switch (choice) {
         case "推荐":
             eval(fetch(getVar("qdb_file")));
-            findList(getPage(), 10);
+            findList(getPage(), 20);
             break;
         case "热门":
             eval(fetch(getVar("qdb_file")));
-            hotList(getPage(), 10);
+            hotList(getPage(), 20);
             break;
         case "分类":
             eval(fetch(getVar("qdb_file")));
-            classList(getPage(), 10);
+            classList(getPage(), 20);
             break;
         case "片单":
             eval(fetch(getVar("qdb_file")));
-            playList(getPage(), 10);
+            playList(getPage(), 20);
             break;
         case "榜单":
             eval(fetch(getVar("qdb_file")));
-            rankList(getPage(), 10);
+            rankList(getPage(), 20);
             break;
         case "将上映":
             eval(fetch(getVar("qdb_file")));
-            comingList(getPage(), 10);
+            comingList(getPage(), 20);
             break;
         default:
             eval(fetch(getVar("qdb_file")));
