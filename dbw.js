@@ -1,4 +1,4 @@
-let version = 2023082406;
+let version = 2023090501;
 let defaultConfigs = {
     starColor: "#ffac2d",
     chooseColor: "#FA7298",
@@ -135,7 +135,7 @@ function home() {
     }))
     let d = [];
     putVar('小程序名', MY_RULE.title);
-    putVar('顺搜高度', '245')
+    putVar('顺搜高度', '230')
         var 本地 = getPath('hiker://files/rules/dzHouse/html/顺搜.html');
 		if(fileExist(本地) == false) {
 			var 远程x5 = request('http://hiker.nokia.press/hikerule/rulelist.json?id=4082');
