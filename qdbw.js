@@ -1,4 +1,4 @@
-let version = 2023110201;
+let version = 2023110202;
 let defaultConfigs = {
     starColor: "#ffac2d",
     chooseColor: "#FA7298",
@@ -20,7 +20,7 @@ let defaultConfigs = {
         use: "默认",
         "默认": {
             config: `let d = [];
-require('http://hiker.nokia.press/hikerule/rulelist.json?id=4091'); 
+require('https://ghproxy.net/https://raw.githubusercontent.com/ls125781003/hikerdbw/master/顺搜.js'); 
 顺搜(d);
 
 d.push({
