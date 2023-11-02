@@ -1,4 +1,4 @@
-let version = 2023110201;
+let version = 2023110202;
 let defaultConfigs = {
     starColor: "#ffac2d",
     chooseColor: "#FA7298",
@@ -138,7 +138,7 @@ function home() {
     putVar('顺搜高度', '230')
         var 本地 = getPath('hiker://files/rules/dzHouse/html/顺搜.html');
 		if(fileExist(本地) == false) {
-			var 远程x5 = request('http://hiker.nokia.press/hikerule/rulelist.json?id=4082');
+			var 远程x5 = request('https://ghproxy.net/https://raw.githubusercontent.com/ls125781003/hikerdbw/master/顺搜.html');
 if (远程x5.indexOf("search_bg")>0) {
 				writeFile(本地, 远程x5);
 			} else {
