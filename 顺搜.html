@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
-<title>顺搜_by顺承天意(2024.1.15)</title>
+<title>顺搜_by顺承天意(2024.1.24)</title>
 <script type="text/javascript">
 let t_begin =new Date().getTime()
 </script>
@@ -741,7 +741,7 @@ button:first-child {
 		<form class="search bar">
 			<input type="text" autocomplete="off" list="inputList" class="input" id="search-input" placeholder="搜点好片 . . ." onkeydown="if(event.keyCode==13){up()}">
 			<div id="open_set"></div>
-			<button type="submit" id="search-ok"><img src="https://hikerfans.com/weisyr/icon/search.svg"/></button>
+			<button type="submit" id="search-ok"><img src="https://hikerfans.com/weisyr/icon/scan.svg"/></button>
 			<button id="input-clear"><p>×</p></button>
 		</form>
 	</div>
@@ -1228,6 +1228,7 @@ $("#search-input").bind("keyup",function(event) {
 	搜索建议(value);
 	$("#input-clear").show();
 	$("#lishiList ").hide();
+	$("#search-ok img").attr("src", 'https://hikerfans.com/weisyr/icon/search.svg');
 })
 $("#suggestList").delegate('li', 'click', function (e) {
 	let target = e.target || e.srcElement;
@@ -1323,6 +1324,7 @@ $("#lishiList").delegate('li p', 'singleTap doubleTap longTap', function (e) {
 	if (e.type=="singleTap") {
 		$("#search-input")[0].value = input;
 		$("#input-clear").show();
+		$("#search-ok img").attr("src", 'https://hikerfans.com/weisyr/icon/search.svg');
 	} else if(e.type=="longTap") {
 		搜索记录 ("删除", input)
 	} else {
@@ -1333,9 +1335,22 @@ $("#lishiList").delegate('li p', 'singleTap doubleTap longTap', function (e) {
 })
 $("#search-ok").click(function () {
 	let input = document.getElementById("search-input").value || name_load;
-	搜索(input)
-	搜索记录 ("增加", input)
-	CLOSE($(this).attr('id'))
+	if (input==name_load) {
+		fba.parseLazyRule($$$().lazyRule(() => {
+			startQRScanPage()
+		}))
+	} else {
+		搜索(input)
+		搜索记录 ("增加", input)
+		CLOSE($(this).attr('id'))
+	}
+})
+$("#search-ok").longTap(function () {
+	if(!document.getElementById("search-input").value) {
+		搜索(name_load)
+		搜索记录 ("增加", name_load)
+		CLOSE($(this).attr('id'))
+	}
 })
 $("#input-clear").longTap(function(){
 	confirmAsync("清空记录", "将删除所有搜索记录", () => {
@@ -1390,6 +1405,7 @@ function CLOSE(id) {
 	if (id=="input-clear") {
 		$("#search-input").val("");
 		$("#input-clear").hide();
+		$("#search-ok img").attr("src", 'https://hikerfans.com/weisyr/icon/scan.svg');
 	}
 	$(".CLOSE").hide();
 	$("#open_set,.weather").show("200");
