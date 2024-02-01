@@ -1,4 +1,4 @@
-function 顺搜(arr, height) {
+function 顺搜(height, arr) {
 	if (MY_PAGE == 1) {
 		var 程序名=MY_RULE.title;
 		putVar('小程序名', 程序名);
@@ -12,7 +12,8 @@ function 顺搜(arr, height) {
 				confirm({
 					title: '❌错误提示',
 					content: '顺搜导入出错'
-				})
+				});
+				return
 			}
 		}
 		if (!getVar('X5加载')) {
@@ -20,7 +21,7 @@ function 顺搜(arr, height) {
 		} else {
 			x5_height = getVar(程序名+'顺搜高度', 'video')
 		}
-		arr.push({
+		let 顺搜_Arr = [{
 			desc: 'list&&' + x5_height,
 			url: 本地,
 			col_type: 'x5_webview_single',
@@ -29,7 +30,8 @@ function 顺搜(arr, height) {
 				autoPlay: true,
 				imgLongClick: false
 			}
-		})
-		return arr
+		}];
+		if(arr) arr.push(顺搜_Arr[0]);
+		return arr || 顺搜_Arr
 	}
 }
