@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
-<title>顺搜_by顺承天意(2024.4.26)</title>
+<title>顺搜_by顺承天意(2024.5.22)</title>
 <script type="text/javascript">
 let t_begin =new Date().getTime()
 </script>
@@ -1472,7 +1472,7 @@ function OPEN(id) {
 		setTimeout(function() {
 			$('#main_img img').css({"filter": "blur(5px)"});
 		}, 200);
-		$("#suggestList, #open_set,.weather").hide();
+		$("#suggestList, #open_set,.weather,#weather_info").hide();
 	}
 	input_state=1
 	$(".CLOSE").show();
@@ -1508,7 +1508,7 @@ function OPEN(id) {
 			setTimeout(function () {
 				$(".function").hide();
 			},300)
-			$("#open_set,.weather").fadeIn("200");
+			$("#open_set,.weather,#weather_info").fadeIn("200");
 			if(get_settings(程序名+"天气")==true) {
 				$(".IMG").css({"animation":"close .3s linear forwards"});
 			} else {
@@ -1526,7 +1526,7 @@ function CLOSE(id) {
 		$("#search-ok img").attr("src", 'https://hikerfans.com/weisyr/icon/scan.svg');
 	}
 	$(".CLOSE").hide();
-	$("#open_set").show("200");
+	$("#open_set,#weather_info").show("200");
 	if (input_state==1) {
 		$('.IMG').css({"animation":"reduce .25s linear "});
 		$('#main_img img').css({"filter": "blur(0)"});
@@ -1538,7 +1538,7 @@ function CLOSE(id) {
 	},300)
 	if (input_state==1 && 轮播_state==1) 重启轮播()
 	if(get_settings(程序名+"天气")==true) {
-			$(".weather").show("200");
+			$(".weather,#weather_info").show("200");
 			$(".IMG").css({"animation":"close .3s linear forwards"});
 		} else {
 			$('.IMG').css({"animation":"reduce .25s linear "});
@@ -1546,7 +1546,7 @@ function CLOSE(id) {
 		}
 	if (id=="search_mask" && input_state==0) {
 		oneRadio_load();
-		$(".ONE_radio,.weather").fadeToggle("200")
+		$(".ONE_radio,.weather,#weather_info").fadeToggle("200")
 		$(".ONE_radio p").fadeIn("600");
 		if ($(".ONE_radio").height()> 150 ) {
 			$(".movie").css({"animation":"close .3s linear forwards"});
@@ -1795,7 +1795,7 @@ $("#ONE_play").click(function () {
 	if ($(".ONE_radio").width()< 150 ){
 		$(".ONE_radio").css({"animation":"drop_open .9s ease-in-out forwards"});
 		$(".ONE_radio p").fadeIn("900");
-		$(".weather").hide();
+		$(".weather,#weather_info").hide();
 		$(".movie").css({"animation":"close .3s linear forwards"});
 	} else {
 		fba.playVideos(JSON.stringify(ONE_Play))
@@ -1807,7 +1807,7 @@ $("#ONE_bg").click(function () {
 		setTimeout(function () {
 			$(".ONE_radio").hide();
 		},300)
-		$(".weather").fadeIn("200");
+		$(".weather,#weather_info").fadeIn("200");
 		$(".movie").css({"animation":"slideDownReturn0 .4s ease-out"});
 	}
 })
@@ -1851,6 +1851,7 @@ if (!fba.getVar('X5加载')) {
 	fba.putVar('X5加载', '完成')
 }
 try{requestAsync(Settings_json[程序名+"注入JS"],(key,html)=>{eval(html);})} catch(e){fba.log("注入的JS有错")}
+/*
 function weather(){
 	let H5width = window.screen.width;
 	WIDGET = {
@@ -1867,6 +1868,7 @@ function weather(){
 	}
 	requestAsync("https://widget.qweather.net/standard/static/js/he-standard-common.js?v=2.0",(key,html)=>{eval(html)});
 }
+*/
 fba.parseLazyRuleAsync($$$(位置缓存).lazyRule(() => {
 	try {
 		let city = JSON.parse(request('https://weatherapi.market.xiaomi.com/wtr-v3/location/city/search?locale=zh_cn&name='+input))[0];
@@ -1905,7 +1907,7 @@ fba.parseLazyRuleAsync($$$(位置缓存).lazyRule(() => {
 		let cityid = input.locationKey.replace('weathercn:','CN');
 		fba.putVar('cityid', cityid);
 		if(cityid != Settings_json["cityid"]) set_settings('cityid', cityid);
-		weather();
+		//weather();
 	} else if(input=="warn"){
 		set_settings('位置', "北京");
 		$(".weather").fadeIn("200");
@@ -1919,11 +1921,15 @@ fba.parseLazyRuleAsync($$$(位置缓存).lazyRule(() => {
 $("#weather_info").click(() => {
 	if(fba.getVar('detail')) Alert('🚥 气象预警 🚥',fba.getVar('detail'));
 	fba.clearVar("detail")
+	Prompt("位置", 位置缓存);
+	/*
 	$('.weather,#he-plugin-standard, #wv_1, #wv_2, #wv_3').css({"display":"block","animation":"slideDownReturn0 .25s linear"});
 	$(".IMG").css({"animation":"close .3s linear forwards"});
 	$(".weather").show("0");
 	set_settings(程序名+"天气", true)
+	*/
 })
+/*
 $(".weather").on('click', "#wv_2", () => {
 	Prompt("位置", 位置缓存);
 })
@@ -1939,6 +1945,7 @@ $(".weather").on('click', "#wv_1", () => {
 	$(".IMG").css({"animation":"slideDownReturn0 .4s ease-out"});
 	set_settings(程序名+"天气", false)
 })
+*/
 async function file_load() {
 	fba.parseLazyRuleAsync($$$().lazyRule((ln) => {
 		let name = ['plug/level.js', 'img/frosted.png'];
