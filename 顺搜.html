@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
-<title>顺搜_by顺承天意(2024.5.22)</title>
+<title>顺搜_by顺承天意(2024.6.7)</title>
 <script type="text/javascript">
 let t_begin =new Date().getTime()
 </script>
@@ -863,6 +863,8 @@ async function 选择() {
 			load_set()
 			clearInterval(timing);
 			fba.clearVar("s_q");
+			let ShowH = document.documentElement.clientHeight;
+			if(ShowH<250) fba.refreshX5Desc('list&&'+260);
 		} else if (fba.getVar("s_q") === "🥑青豆") {
 			fba.open(JSON.stringify({title:"设置", url:"hiker://page/settingPage#noRefresh##noHistory##noRecordHistory#?rule=青豆"}))
 			clearInterval(timing);
@@ -1626,6 +1628,7 @@ function load_set() {
 	if ($("#tupian").val()) $(".tupian_clear p").show();
 	if ($("#sousuo").val()) $(".sousuo_clear p").show();
 	if ($("#inject").val()) $(".inject_clear p").show();
+	if(document.documentElement.clientHeight<250) fba.refreshX5Desc('list&&'+260);
 }
 $("#open_set").click(function() {
 	navigator.vibrate([5]);
@@ -1722,6 +1725,7 @@ $(".tupian_clear").click(function(){
 })
 $(".close_set").click(function(){
 	$('.biaodan').css({"animation":"close .3s ease"});
+	fba.refreshX5Desc('list&&'+fba.getVar(程序名+'顺搜高度'));
 	setTimeout(function () {
 		$('.biaodan').hide();
 	},300)
