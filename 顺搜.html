@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
-<title>顺搜_by顺承天意(2024.6.7)</title>
+<title>顺搜_by顺承天意(2024.6.21)</title>
 <script type="text/javascript">
 let t_begin =new Date().getTime()
 </script>
@@ -1923,9 +1923,9 @@ fba.parseLazyRuleAsync($$$(位置缓存).lazyRule(() => {
 		$('#he-plugin-standard').css({"display":"block","animation":"slideDownReturn0 .25s linear"});
 }))
 $("#weather_info").click(() => {
+	if(!fba.getVar('detail')) Prompt("位置", 位置缓存);
 	if(fba.getVar('detail')) Alert('🚥 气象预警 🚥',fba.getVar('detail'));
 	fba.clearVar("detail")
-	Prompt("位置", 位置缓存);
 	/*
 	$('.weather,#he-plugin-standard, #wv_1, #wv_2, #wv_3').css({"display":"block","animation":"slideDownReturn0 .25s linear"});
 	$(".IMG").css({"animation":"close .3s linear forwards"});
