@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
-<title>顺搜_by顺承天意(2024.6.21)</title>
+<title>顺搜_by顺承天意(2024.07.10)</title>
 <script type="text/javascript">
 let t_begin =new Date().getTime()
 </script>
@@ -349,8 +349,12 @@ label {
 	color: #3c9;
 }
 #isAdult_2, #isAdult_4 {
-	margin-left: 190px;
+	margin-left: 52%;
 	color: #3c9;
+}
+#isAdult_2 {
+	background-color: #f0f0f0;
+	border-radius: 5px;
 }
 label::after {
 	margin-right: 6px;
@@ -388,7 +392,7 @@ input.text-input:invalid {
 }	
 input[type=checkbox] {
 	position: relative;
-	left: 70px;
+	left: 90px;
 	appearance: none;
 	transition: all 100ms ease;
 	border-radius: 31px;
@@ -400,7 +404,7 @@ input[type=checkbox] {
 	display: inline-block;
 }
 #ckeckbox_2, #ckeckbox_4{
-	left: 220px;
+	left: 60%;
 }
 input[type=checkbox]::before {
 	position: absolute;
@@ -691,7 +695,7 @@ button:first-child {
 		</div>
 		
 		<div class="form-item">
-			<label id="isAdult">定义图</label>
+			<label id="isAdult">定 义 图</label>
 			<label id="isAdult_2">开轮播</label>
 			<input id="ckeckbox" type="checkbox">
 			<input id="ckeckbox_2" type="checkbox">
@@ -702,7 +706,7 @@ button:first-child {
 			<button class="input_clear inject_clear"><p>×</p></button>
 		</div>
 		<div class="form-item">
-			<label id="isAdult_3">渐变</label>
+			<label id="isAdult_3">渐 变 层</label>
 			<label id="isAdult_4">边距圆角</label>
 			<input id="ckeckbox_3" type="checkbox">
 			<input id="ckeckbox_4" type="checkbox">
@@ -871,6 +875,72 @@ async function 选择() {
 			fba.clearVar("s_q");
 		}
 	},10);
+}
+async function 直搜(input) {
+	fba.parseLazyRuleAsync($$$("#noLoading#").lazyRule((input) => {
+		showLoading(input);
+		var html = 'http://api.milorapart.top/test/search/video.php?name=' + input + '&id=';
+		var js = JSON.parse(request(html)).data;
+		var n = js.map(t => t.name);
+		hideLoading();
+		var hikerPop = $.require("https://hikerfans.com/weisyr/js/hikerPop.js");
+		hikerPop.selectCenter({
+			options: n,
+			columns: 1,
+			title: n[0]? '选择片名':'对应片名没有找到',
+			click(a) {
+				hikerPop.runOnNewThread(() => {//耗时操作
+					showLoading('列表解析中');
+					var index = js.findIndex(t => t.name == a);
+					var id = js[index].id;
+					let playList = [];
+					var json = JSON.parse(fetch(html + id)).data;
+					json.map(a => playList.push({
+						title: a.num,
+						url: a.url,
+					}));
+					hideLoading();
+					//return "toast://你选了" + a;
+					let spen = 3;
+					let names = playList.map(v => v.title);
+					let pop = hikerPop.selectBottomRes({
+						options: names,
+						columns: spen,
+						title: a,
+						noAutoDismiss: false,
+						click(s, i, manage) {
+							manage.list.forEach((v, ii) => (manage.list[ii] = i === ii ? "‘‘" + names[ii] + "’’" : names[ii]));
+							manage.change();
+							hikerPop.playVideos(playList, i);
+						},
+						menuClick(manage) {
+							hikerPop.selectCenter({
+								options: ["改变样式", "正反序", "🔝顶部", "🔚底部"],
+								columns: 2,
+								title: "请选择",
+								click(s, i) {
+									if (i === 0) {
+										spen = spen == 3 ? 1 : 3;
+										manage.changeColumns(spen);
+									} else if (i === 1) {
+										manage.list.reverse();
+										manage.change();
+									} else if (i === 2) {
+										manage.scrollToPosition(0, true);
+									} else if (i === 3) {
+										manage.scrollToPosition(manage.list.length - 1, true);
+									}
+								},
+							});
+						}
+					});
+				})
+			},
+			longClick(a) {
+				return "toast://长按了" + a;
+			}
+		});
+	},input), $$$.toString(() => {}));
 }
 function Prompt(key, value) {
 	$$$(value).x5LazyRule((Settings_json, set_settings,ln,key) => {
@@ -1044,7 +1114,7 @@ async function dealImage(base64, w, callback) {
 		callback(base64);
 	}
 }
-var pictures = request(SS_Pictures + '顺搜_轮播图.json') || "[]";
+var pictures = request(ln + '顺搜_轮播图.json') || "[]";
 	pictures = JSON.parse(pictures)
 function 轮播() {
 	clearInterval(timer);
@@ -1082,7 +1152,7 @@ function 轮播图组(way, input) {
 		if(ccc >-1) pictures.splice(ccc,1);
 		pictures.push(input);
 		$(".pics_img").attr('src', SS_Pictures + input);
-		fba.writeFile(SS_Pictures + '顺搜_轮播图.json', JSON.stringify(pictures))
+		fba.writeFile(ln + '顺搜_轮播图.json', JSON.stringify(pictures))
 	} else if (way=="删除") {
 		clearInterval(timer);
 		confirmAsync("删除轮播图", input, () => {
@@ -1100,7 +1170,7 @@ function 轮播图组(way, input) {
 				set_settings(程序名+"启用轮播",  false);
 			}
 			if (get_settings(程序名+"自定义图片") == input) set_settings(程序名+"自定义图片", "")
-			fba.writeFile(SS_Pictures + '顺搜_轮播图.json', JSON.stringify(pictures))
+			fba.writeFile(ln + '顺搜_轮播图.json', JSON.stringify(pictures))
 		});
 	} else {
 		轮播();
@@ -1123,7 +1193,7 @@ function 重启轮播() {
 }
 //自动匹配图库并压缩
 async function auto_match() {
-	fba.parseLazyRuleAsync($$$(pictures).lazyRule((SS_Pictures) => {
+	fba.parseLazyRuleAsync($$$(pictures).lazyRule((ln,SS_Pictures) => {
 		let file = $.require("https://hikerfans.com/weisyr/js/file.js")
 		let folder = file.getFolder("/storage/emulated/0/Android/data/com.example.hikerview/files/Documents/SS_Pictures/")
 		let file_name = []
@@ -1133,16 +1203,16 @@ async function auto_match() {
 			let name = item['name'];
 			let extention = name.substring(name.lastIndexOf(".") + 1).toLowerCase();
 			if (allowExtention.indexOf(extention) > -1) file_name.push(name);
-			if (file.getPicInfo(item['path']).outHeight > 5000 || (item['size']/1024 > 10240)) To_base64.push(name);
+			if (file.getPicInfo(item['path']).outHeight > 5000 || (item['size']/1024 > 30240)) To_base64.push(name);
 			if (item['size']/1024 < 2 && allowExtention.indexOf(extention) > -1) deleteFile(SS_Pictures + item['name']);
 		});
 		let j0 = JSON.stringify(input).length
 		let j1 = JSON.stringify(file_name.join(',')).length
 		if(j0!=j1) {
-			writeFile(SS_Pictures + '顺搜_轮播图.json', JSON.stringify(file_name));
+			writeFile(ln + '顺搜_轮播图.json', JSON.stringify(file_name));
 		}
 		return {"file_name": file_name, "deal_img": To_base64}
-	},SS_Pictures),$$$.toString(()=>{
+	},ln,SS_Pictures),$$$.toString(()=>{
 		pictures = JSON.parse(input).file_name;
 		let deal_img = JSON.parse(input).deal_img;
 		for(let i= 0; i< deal_img.length; i++) {
@@ -1459,6 +1529,8 @@ $("#search-ok").longTap(function () {
 	if(!input) {
 		搜索(name_load)
 		搜索记录 ("增加", name_load)
+	} else {
+		直搜(input);
 	}
 })
 $("#input-clear").longTap(function(){
@@ -1621,7 +1693,7 @@ function load_set() {
 	启用渐变 = (Settings_json.hasOwnProperty(程序名 + "渐变") && typeof Settings_json[程序名 + "渐变"] === "boolean") ? Settings_json[程序名 + "渐变"] : true;
 	$("input[type='checkbox']:eq(2)").prop('checked',启用渐变);
 	$("input[type='checkbox']:eq(3)").prop('checked',Settings_json[程序名+"边距圆角"]);
-	let pic_list = request(SS_Pictures + '顺搜_轮播图.json') || '[]';
+	let pic_list = request(ln + '顺搜_轮播图.json') || '[]';
 	if (pic_list=='[]') {
 		$("input[type='checkbox']:eq(1)").prop('checked',false)
 	}
@@ -1767,6 +1839,10 @@ $("#dayNumber, #month, #s2").longTap(function () {
 	if($(this).attr('id')=="dayNumber") Prompt("书签❶", "https://m.rili.com.cn/");
 	if($(this).attr('id')=="month") Prompt("书签❷", "https://m.xingzuo.com/shierxingzuo/");
 	if($(this).attr('id')=="s2") Prompt("书签❸", "https://t.xxgeek.com/tools/mmvod/m.php");
+})
+$("#isAdult_2").click(function () {
+	let rule = request(ln + 'plug/文件管理.js');
+	fba.open(JSON.stringify({title: '顺搜轮播库', url:"#noRefresh##noHistory##noRecordHistory#hiker://empty", findRule: rule, extra:{newWindow: true,windowId: '顺搜轮播库'}}))
 })
 var ONE_Play;
 async function ONE_RADIO(Days) {
@@ -1924,7 +2000,12 @@ fba.parseLazyRuleAsync($$$(位置缓存).lazyRule(() => {
 }))
 $("#weather_info").click(() => {
 	if(!fba.getVar('detail')) Prompt("位置", 位置缓存);
-	if(fba.getVar('detail')) Alert('🚥 气象预警 🚥',fba.getVar('detail'));
+	if(fba.getVar('detail')) {
+		const text = fba.getVar('detail');
+		const regex = /发布(.+?)预警/;
+		const match = text.match(regex)[1]+'预警';
+		Alert('🚥 '+match+' 🚥',fba.getVar('detail'));
+	}
 	fba.clearVar("detail")
 	/*
 	$('.weather,#he-plugin-standard, #wv_1, #wv_2, #wv_3').css({"display":"block","animation":"slideDownReturn0 .25s linear"});
@@ -1933,6 +2014,7 @@ $("#weather_info").click(() => {
 	set_settings(程序名+"天气", true)
 	*/
 })
+
 /*
 $(".weather").on('click', "#wv_2", () => {
 	Prompt("位置", 位置缓存);
@@ -1952,7 +2034,7 @@ $(".weather").on('click', "#wv_1", () => {
 */
 async function file_load() {
 	fba.parseLazyRuleAsync($$$().lazyRule((ln) => {
-		let name = ['plug/level.js', 'img/frosted.png'];
+		let name = ['plug/level.js', 'plug/文件管理.js', 'img/frosted.png'];
 		let wn = 'https://hikerfans.com/weisyr/';
 		for (let n = 0; n < name.length; n++) {
 			let localfile = [ln + name[n]];
