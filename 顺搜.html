@@ -3,13 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
-<title>顺搜_by顺承天意(2024.07.10)</title>
+<title>顺搜_by顺承天意(2024.07.11)</title>
 <script type="text/javascript">
 let t_begin =new Date().getTime()
 </script>
 <!-- <script src="https://cdn.bootcdn.net/ajax/libs/zepto/1.2.0/zepto.min.js"></script> -->
 <script src="https://hikerfans.com/weisyr/js/zepto.min.js"></script>
 <script src="https://hikerfans.com/weisyr/js/zepto-module.js"></script>
+<script src="js/zepto.min.js"></script>
+<script src="js/zepto-module.js"></script>
 <!-- <script src="https://cdn.bootcdn.net/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script> -->
 <style type="text/css">
 * {
@@ -536,7 +538,7 @@ button:first-child {
 #month {
 	left: 50%;
 	right:0;
-	background: url("https://hikerfans.com/weisyr/img/frosted.png");
+	background: url("img/frosted.png");
 	background-size: 55%;
 	opacity: .5;
 	color: black;
@@ -746,7 +748,7 @@ button:first-child {
 		<form class="search bar">
 			<input type="text" autocomplete="off" list="inputList" class="input" id="search-input" placeholder="搜点好片 . . ." onkeydown="if(event.keyCode==13){up()}">
 			<div id="open_set"></div>
-			<button type="submit" id="search-ok"><img src="https://hikerfans.com/weisyr/icon/scan.svg"/></button>
+			<button type="submit" id="search-ok"><img src="icon/scan.svg"/></button>
 			<button id="input-clear"><p>×</p></button>
 		</form>
 	</div>
@@ -757,7 +759,7 @@ button:first-child {
 <div class="ONE_radio">
 	<div id="ONE_mask"></div>
 	<img id="ONE_bg"/>
-	<img id="ONE_play" src="https://hikerfans.com/weisyr/icon/radio_play.svg"/>
+	<img id="ONE_play" src="icon/radio_play.svg"/>
 	<p id="title_1"></p>
 	<p id="title_2"></p>
 </div>
@@ -1413,7 +1415,7 @@ $("#search-input").bind("keyup",function(event) {
 	搜索建议(value);
 	$("#input-clear").show();
 	$("#lishiList ").hide();
-	$("#search-ok img").attr("src", 'https://hikerfans.com/weisyr/icon/search.svg');
+	$("#search-ok img").attr("src", 'icon/search.svg');
 })
 $("#suggestList").delegate('li', 'click', function (e) {
 	let target = e.target || e.srcElement;
@@ -2034,7 +2036,7 @@ $(".weather").on('click', "#wv_1", () => {
 */
 async function file_load() {
 	fba.parseLazyRuleAsync($$$().lazyRule((ln) => {
-		let name = ['plug/level.js', 'plug/文件管理.js', 'img/frosted.png'];
+		let name = ['js/zepto.min.js','js/zepto-module.js','plug/level.js', 'plug/文件管理.js', 'img/frosted.png','icon/scan.svg','icon/search.svg','icon/radio_play.svg'];
 		let wn = 'https://hikerfans.com/weisyr/';
 		for (let n = 0; n < name.length; n++) {
 			let localfile = [ln + name[n]];
