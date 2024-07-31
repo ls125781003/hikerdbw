@@ -3,15 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
-<title>顺搜_by顺承天意(2024.07.11)</title>
+<title>顺搜_by顺承天意(2024-07-29)</title>
 <script type="text/javascript">
 let t_begin =new Date().getTime()
 </script>
 <!-- <script src="https://cdn.bootcdn.net/ajax/libs/zepto/1.2.0/zepto.min.js"></script> -->
-<script src="https://hikerfans.com/weisyr/js/zepto.min.js"></script>
-<script src="https://hikerfans.com/weisyr/js/zepto-module.js"></script>
 <script src="js/zepto.min.js"></script>
 <script src="js/zepto-module.js"></script>
+<!-- <script src="https://hikerfans.com/weisyr/js/zepto.min.js"></script> -->
+<!-- <script src="https://hikerfans.com/weisyr/js/zepto-module.js"></script> -->
 <!-- <script src="https://cdn.bootcdn.net/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script> -->
 <style type="text/css">
 * {
@@ -37,6 +37,12 @@ let t_begin =new Date().getTime()
 body {
 	background-color: var(--background-color);
 	color: var(--font-color);
+	margin: 0;
+	padding: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 100vh;
 }
 .switch, .CLOSE {
 	position: absolute;
@@ -61,10 +67,10 @@ button:active,
 #today:active,
 #input-clear:active {
 	animation: click 0.8s ease-in-out infinite;
-	background-color: rgba(0, 0, 0, 0.3);
+	/background-color: rgba(0, 0, 0, 0.3);
 }
 #set_pic:active {
-	border-radius:	8px;
+	border-radius: 8px;
 }
 #input-clear:active {
 	background-color: rgba(255, 0, 0, .5);
@@ -78,7 +84,7 @@ button:active,
 @keyframes click_in {
 0% {transform: scale(0.0)}
 40% {transform: scale(1.05)}
-100% {transform: scale(1)}
+100% {transform: scale(1) }
 }
 @keyframes close {
 0%{transform:scale(1);} 
@@ -110,24 +116,36 @@ button:active,
 }
 @keyframes 天气 {
 0% {transform: scale(1); opacity: 0;}
-20% {transform: scale(1.05); opacity: .9;}
-60% {transform: scale(1.05); opacity:,9;}
+20% {transform: scale(1.05); opacity: .5;}
+60% {transform: scale(1.05); opacity:,5;}
 100% {transform: scale(1); opacity: 0;}
 }
 @keyframes drop {
 0% {width: 55px; height: 55px;border-radius: 50%; left: 50%; margin-top: 90%;}
-70% {width: 55px; height: 45px;border-radius: 50%; left: 79%; margin-top: -10px;}
-100% {width: 55px; height: 55px;border-radius: 50%; left: 83%; margin-top: 0;}
+70% {width: 55px; height: 45px;border-radius: 50%; left: 79%; margin-top: 0px;}
+100% {width: 55px; height: 55px;border-radius: 50%; left: 83%; margin-top: 10px;}
 }
 @keyframes drop_open {
 0% {left: 83%; margin-top: 0; width: 60px; height: 60px; border-radius: 50%; }
-40% {left: 0; margin-top: 1%; width: 100%; height: 75%; border-radius: 15px; }
-100% {right: 2%; margin-top: 1%; width: 96%; left:2%; bottom:50px;border-radius: 15px; }
+40% {left: 0; margin-top: 10px; width: 100%; height: 75%; border-radius: 15px; }
+100% {right: 3%; margin-top: 10px; width: 94%; left:3%; bottom:40px;border-radius: 15px; }
 }
-@keyframes slideDownReturn0{0%{transform:translateY(140%);transform-origin:0 0}to{transform:translateY(0);transform-origin:0 0}}
+@keyframes 天气_open {
+0% {opacity: 0; left: -50%; transform: scale(.2) translate3d(0, 0, 0);}
+40% {opacity: 1; left: 0; transform: scale(1.03);}
+100% {opacity: 1; left: 0; transform: scale(1);}
+}
+@keyframes 天气_close {
+0% {opacity: 1; left: 0; transform: scale(1);}
+100% {opacity: 0; left: -40%; transform: scale(.4);}
+}
+@keyframes slideDownReturn0 {
+0% {transform: translate3d(0, 100%, 0); opacity: 0;}
+100% {transform: translate3d(0, 0, 10px); opacity: 1;}
+}
 @keyframes slideDownReturn{0%{opacity:0;transform:scale(.2) translateY(300%);transform-origin:50% 100%}to{opacity:1;transform:scale(1) translate(0);transform-origin:50% 100%}}
 @keyframes spaceOutDown{0%{opacity:1;transform:scale(1) translate(0);transform-origin:50% 100%}to{opacity:0;transform:scale(.2) translateY(300%);transform-origin:50% 100%}}
-.movie {
+.Pic_card, .main {
 	top: 0;
 	bottom: 0;
 	left: 0;
@@ -147,8 +165,12 @@ button:active,
 	height: 70px;
 	margin:0 auto;
 	position: absolute;
-	overflow: hidden;
+	/overflow: hidden;
+	opacity: 0.5;
 	z-index: 5;
+}
+#search_box form:hover {
+	transform: translate3d(0px, 10px, 100px);
 }
 #search_mask {
 	width: 100%;
@@ -174,6 +196,8 @@ button:active,
 	right: 0;
 	width: 90%;
 	margin:0 auto;
+	transform: translate3d(0, 0, 0);
+	transition: transform .6s;
 }
 input,button {
 	border:none;
@@ -183,8 +207,8 @@ input:focus::-webkit-input-placeholder {
 	color: rgba(0, 0, 0, 0.1);
 }
 .bar input {
-	border-radius: 50px;
-	border: 1px solid rgba(0, 0, 0, 0.2);
+	border-radius: 10px;
+	border: 1px solid rgba(0, 0, 0, 0.4);
 	background-color: var(--part-background);
 	color: var(--font-color);
 	font-size: 90%;
@@ -277,7 +301,7 @@ input:focus::-webkit-input-placeholder {
 	margin-left:1%;
 	padding: 0 8px;
 	border-radius: 8px;
-	box-shadow: rgba(0, 0, 0, 0.05) 0 1px 1px, rgba(0, 0, 0, 0.06) 0 1px 1px;
+	box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 2px, rgba(0, 0, 0, 0.14) 0px 1px 2px;
 }
 
 #lishiList li  p,
@@ -315,13 +339,14 @@ input:focus::-webkit-input-placeholder {
 }
 .biaodan {
 	position: absolute;
-	display: none;
-	z-index: 1;
+	visibility:hidden;
+	z-index: 3;
 	background-color: var(--background-color);
 	height: 100%;
 	top: 0;
 	left: 0;
 	right: 0;
+	overflow: hidden;
 }
 .form-box {
 	width:95%;
@@ -567,18 +592,26 @@ button:first-child {
 	font-weight: 700;
 	flex: 1;
 }
+.ONE_card {
+	position: absolute;
+	pointer-events: none;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	z-index: 2;
+}
 .ONE_radio {
 	position: absolute;
 	overflow: hidden;
-	display: none;
-	z-index: 0;
-	background-color: var(--background-color);
 	bottom: 40px;
 	top: 4%;
-	left: 2%;
-	right: 2%;
+	left: 3%;
+	right: 3%;
 	border-radius: 15px;
+	display: none;
+	background-color: var(--background-color);
 	box-shadow: rgb(0, 0, 0, 0.65) 0 20px 25px -10px;
+	pointer-events: auto;
 }
 #ONE_mask {
 	position: absolute;
@@ -594,20 +627,22 @@ button:first-child {
 	margin: auto;
 	background: radial-gradient(circle, rgba(0, 0, 0, .2) 10%, rgba(10, 10, 10, .0) 45%);
 }
-#ONE_mask:hover,.ONE_radio p, .bar button img, #lishiList, #weather_iframe, #he-plugin-standard a{
+#ONE_mask:hover,.ONE_radio p, .bar button img, #lishiList, #weather_iframe{
 	pointer-events: none;
 }
 #ONE_play {
 	filter: brightness(0) invert(1);
-	z-index: 1;
-	width: 20vh;
-	height: 20vh;
+	position: absolute;
+	z-index: 2;
+	width: 22vh;
+	height: 22vh;
 	border-radius: 50%;
 	left: 0;
 	top: 0;
 	right: 0;
 	bottom: 0;
 	margin: auto;
+	　transform-origin: center;
 	opacity: 0.7;
 	animation: click 2s ease-in-out infinite;
 }
@@ -623,13 +658,23 @@ button:first-child {
 	bottom: 0;
 	font-size: 120%;
 }
-.weather, .wv-lt-refresh {
+.All_weather {
 	position: absolute;
-	display: none;
+	display: flex;
+	justify-content: center;
+	align-items: flex-start;
+	width: 92%;
+	height: 162px;
+	/background-color: rgba(255, 255, 255, 0.2);
+	margin-top: 20px;
+	margin-bottom: 90px;
+	pointer-events: none;
+	z-index: 1;
 }
-#he-plugin-standard {
-	/display: none;
-	box-shadow: rgb(0, 0, 0, 0.65) 0 20px 25px -10px;
+.weather, #weather_iframe {
+	position: relative;
+	width: 100%;
+	height: 100%;
 }
 #weather_info {
 	justify-content: space-between;
@@ -638,26 +683,30 @@ button:first-child {
 	align-items: center;
 	display: flex;
 	top: 20px;
+	left: 12px;
 }
 #weather_info a {
 	position: absolute;
 	display: inline-block;
 	left: 12px;
-	color: #fff;
+	color: var(--font-color);
 	font-size: 100%;
-	text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
+	text-shadow: 1px 1px 1px rgba(0,0,0,0.05);
+}
+#wv_1,#wv_2,#wv_3 {
+	position: absolute;
+	/background-color: rgba(255, 255, 255, 0.9);
+	pointer-events: auto;
 }
 #wv_1 {
-	position: absolute;
-	display: none;
 	top: 0;
+	height: 40px;
 	bottom: 0;
 	z-index: 1;
-	width: 100%
+	width: 120px;
+	right:0;
 }
 #wv_2 {
-	position: absolute;
-	display: none;
 	top: 0;
 	left: 0;
 	z-index: 2;
@@ -665,13 +714,11 @@ button:first-child {
 	height: 40px;
 }
 #wv_3 {
-	position: absolute;
-	display: none;
-	bottom: 20px;
+	top: 45px;
 	left: 20px;
 	z-index: 3;
-	width: 120px;
-	height: 20px
+	width: 80px;
+	height: 120px;
 }
 #gradienter {
 	width: 100%;
@@ -723,7 +770,8 @@ button:first-child {
 		</div>
 	</form>
 </div>
-<div class="movie">
+<div class="Pic_card">
+<div class="main">
 	<div class="switch"></div>
 	<div class="CLOSE"></div>
 	<div id="movieimg">
@@ -755,7 +803,9 @@ button:first-child {
 	<ul id="suggestList"></ul>
 	<ul id="lishiList"></ul>
 </div>
+</div>
 <input type="file" onchange="PreviewImage(this);" style="display: none;">
+<div class="ONE_card">
 <div class="ONE_radio">
 	<div id="ONE_mask"></div>
 	<img id="ONE_bg"/>
@@ -763,14 +813,15 @@ button:first-child {
 	<p id="title_1"></p>
 	<p id="title_2"></p>
 </div>
-<div id="weather_info">
-	<a></a>
 </div>
+<div id="weather_info"><a></a></div>
+<div class="All_weather">
 <div class="weather">
 	<div id='wv_1'></div>
 	<div id='wv_2'></div>
 	<div id='wv_3'></div>
-	<div id="he-plugin-standard"></div>
+	<iframe id='weather_iframe' src="" frameborder="0"></iframe>
+</div>
 </div>
 </body>
 <script type="text/javascript">
@@ -779,6 +830,7 @@ button:first-child {
 })*/
 eval(fy_bridge_app.getInternalJs());
 window.request = window.request00 || window.request;
+const bgColor = window.getComputedStyle(document.documentElement).getPropertyValue('--font-color').trim();
 let 程序名 = fba.getVar("小程序名");
 let nowdays = new Date();
 let Year = nowdays.getFullYear();
@@ -1336,7 +1388,7 @@ function 重定向(SRC) {
 	});
 }
 加载图片(定义图)
-function 热片推荐() {
+async function 热片推荐() {
 	function 缓存热片() {
 		fba.parseLazyRuleAsync($$$().lazyRule((ln) => {
 			let list = pdfa(request("http://maoyan.dianping.com/#movie/classic"), 'body&&.top-rated-item');
@@ -1350,12 +1402,9 @@ function 热片推荐() {
 		}));
 	}
 	let input_load = request(ln+'顺搜_Hot-Movie.json');
-	if (localStorage.getItem('星期') == 2 || !input_load || input_load == "[]") {
-		缓存热片();
-	} else {
-		function getOne(items) { return items[Math.floor(Math.random() * items.length)]};
-		name_load = getOne(JSON.parse(input_load)) || "无法获取热片";
-	}
+	function getOne(items) { return items[Math.floor(Math.random() * items.length)]};
+	if (localStorage.getItem('星期') == 2 || !input_load || input_load == "[]") 缓存热片();
+	name_load = getOne(JSON.parse(input_load)) || "无法获取热片";
 	$(".input").attr("placeholder", '🔥 ' + name_load);
 }
 热片推荐()
@@ -1458,10 +1507,13 @@ function 搜索记录 (way, input) {
 		});
 	}
 	function Refresh_lishi() {
-		lishi=lishi.slice(-28);
+		function cleanString(str) {
+			return str.replace(/<\/?p>/g, '').trim();
+		}
+		lishi=lishi.slice(-28).map(cleanString).filter(str => str);
 		let History ="";
 		for (let i = lishi.length - 1; i >= 0; i--) {
-			History += "<li><p>"+lishi[i].substring(0, 18)+"</p></li>";
+			History += "<li><p>"+lishi[i].substring(0, 18).replace(/<\/?p>/g, '')+"</p></li>";
 		}
 		$("#lishiList").html(History);
 		let lishi_1=JSON.stringify(lishi);
@@ -1497,15 +1549,15 @@ $("div").delegate('.switch', 'singleTap doubleTap longTap', function (e) {
 		响应高度()
 	}
 })
-$("#lishiList").delegate('li p', 'singleTap doubleTap longTap', function (e) {
+$("#lishiList").delegate('li', 'singleTap doubleTap longTap', function (e) {
 	let input = e.target || e.srcElement;
-	input = input.innerHTML
+	input = input.innerHTML.replace(/<\/?p>/g, '');
+	navigator.vibrate([2]);
 	if (e.type=="singleTap") {
 		$("#search-input")[0].value = input;
 		$("#input-clear").show();
 		$("#search-ok img").attr("src", 'https://hikerfans.com/weisyr/icon/search.svg');
 	} else if(e.type=="longTap") {
-		navigator.vibrate([5]);
 		搜索记录 ("删除", input)
 	} else {
 		搜索(input)
@@ -1553,11 +1605,12 @@ function OPEN(id) {
 	input_state=1
 	$(".CLOSE").show();
 	if(id=="search-input") {
-		let hs = Math.trunc(($(".movie").height()-94)/38);
+		let hs = Math.trunc(($(".main").height()-94)/38);
 		$("#lishiList").css("height", hs*38+1);
 		搜索记录 (0, 0)
 		$('#lishiList').css({"display":"block","animation":"click_in .5s linear"});
 		$('.function').css({"animation":"spaceOutDown .3s linear"});
+		$('#search_box').css({"opacity":".9"})
 		setTimeout(function () {
 			$(".function").hide();
 		},300)
@@ -1575,22 +1628,22 @@ function OPEN(id) {
 			日历()
 			$('.function').css({"display":"block","animation":"slideDownReturn .4s ease"});
 			$('#open_function').css({"animation":"功能开 .3s linear forwards"});
-			if(get_settings(程序名+"天气")==true) {
-				$(".IMG").show("0");
-				$(".IMG").css({"animation":"slideDownReturn0 .4s ease-out"});
-			}
 		} else {
 			$('.function').css({"animation":"spaceOutDown .3s linear"});
 			setTimeout(function () {
 				$(".function").hide();
 			},300)
-			$("#open_set,.weather,#weather_info").fadeIn("200");
-			if(get_settings(程序名+"天气")==true) {
-				$(".IMG").css({"animation":"close .3s linear forwards"});
+			$("#open_set").fadeIn("200");
+			if(get_settings(程序名+"天气")!=true) {
+				$("#weather_info").css({"display": "block","animation":"天气 2s linear forwards"});
 			} else {
-				$('.IMG').css({"animation":"reduce .25s linear "});
-				$('#main_img img').css({"filter": "blur(0)"});
+				$('#weather_info').css({"display":"none"})
+				setTimeout(function () {
+					$(".weather").show(600);
+				},200)
 			}
+			$('.IMG').css({"animation":"reduce .25s linear "});
+			$('#main_img img').css({"filter": "blur(0)"});
 			$('#open_function').css({"animation":"功能关 .3s linear forwards"});
 		}
 	}
@@ -1602,7 +1655,17 @@ function CLOSE(id) {
 		$("#search-ok img").attr("src", 'https://hikerfans.com/weisyr/icon/scan.svg');
 	}
 	$(".CLOSE").hide();
-	$("#open_set,#weather_info").show("200");
+	$("#open_set").show(800);
+	
+	$('#search_box').css({"opacity":"0.5"})
+	if(get_settings(程序名+"天气")!=true) {
+		$("#weather_info").css({"display": "block","animation":"天气 2s linear forwards"});
+	} else {
+		$('#weather_info').css({"display":"none"})
+		setTimeout(function () {
+			$(".weather").show(600);
+		},200)
+	}
 	if (input_state==1) {
 		$('.IMG').css({"animation":"reduce .25s linear "});
 		$('#main_img img').css({"filter": "blur(0)"});
@@ -1613,19 +1676,13 @@ function CLOSE(id) {
 		$("#suggestList, #lishiList, .function").hide();
 	},300)
 	if (input_state==1 && 轮播_state==1) 重启轮播()
-	if(get_settings(程序名+"天气")==true) {
-			$(".weather,#weather_info").show("200");
-			$(".IMG").css({"animation":"close .3s linear forwards"});
-		} else {
-			$('.IMG').css({"animation":"reduce .25s linear "});
-			$('#main_img img').css({"filter": "blur(0)"});
-		}
 	if (id=="search_mask" && input_state==0) {
 		oneRadio_load();
-		$(".ONE_radio,.weather,#weather_info").fadeToggle("200")
+		$(".weather,#weather_info").hide();
+		$(".ONE_radio").fadeToggle("200")
 		$(".ONE_radio p").fadeIn("600");
 		if ($(".ONE_radio").height()> 150 ) {
-			$(".movie").css({"animation":"close .3s linear forwards"});
+			$(".main").css({"animation":"close .3s linear forwards"});
 			$(".ONE_radio").css({"display":"block","animation":"slideDownReturn0 .2s linear forwards"});
 		}
 	}
@@ -1678,7 +1735,8 @@ function load_set() {
 		});
 		auto_match()
 	}));
-	$('.biaodan').css({"display":"block","animation":"click_in .5s ease"});
+	$('.biaodan').css({"visibility":"visible"});
+	$('.form-box').css({"animation":"click_in .5s ease forwards"});
 	$("#sousuo").val(Settings_json[程序名+"自定义搜索"]);
 	$("#tupian").val(Settings_json[程序名+"自定义图片"]);
 	$("#inject").val(Settings_json[程序名+"注入JS"]);
@@ -1740,15 +1798,7 @@ function 设定样式() {
 		$("#mask_toTop").css("background", "transparent");
 	}
 	if(边距圆角==true) {
-		$(".movie").css({"left":"10px", "right":"10px", "border-radius":"18px"});
-	}
-	if(get_settings(程序名+"天气")) {
-		//$("#open_set,.weather").show("200");
-		$(".IMG").css({"animation":"close .3s linear forwards"});
-		$('#he-plugin-standard, #wv_1,#wv_2, #wv_3').css({"display":"block","animation":"slideDownReturn0 .25s linear"})
-	} else {
-		$('#he-plugin-standard, #wv_1, #wv_2, #wv_3').css({"display":"none"});
-		$(".weather").hide("0")
+		$(".main").css({"left":"10px", "right":"10px", "border-radius":"18px"});
 	}
 }
 设定样式()
@@ -1761,9 +1811,9 @@ $("input[type='checkbox']:eq(2)").click(function() {
 })
 $("input[type='checkbox']:eq(3)").click(function() {
 	if($(this).is(':checked') ==true) {
-		$(".movie").css({"left":"10px", "right":"10px", "border-radius":"18px"});
+		$(".main").css({"left":"10px", "right":"10px", "border-radius":"18px"});
 	} else {
-		$(".movie").css({"left": "0","right": "0","border-radius": "18px 18px 0 0"});
+		$(".main").css({"left": "0","right": "0","border-radius": "18px 18px 0 0"});
 	}
 })
 $("#sousuo").bind("keyup",function(event) {
@@ -1798,11 +1848,11 @@ $(".tupian_clear").click(function(){
 	$("#ckeckbox_2").prop('checked',false)
 })
 $(".close_set").click(function(){
-	$('.biaodan').css({"animation":"close .3s ease"});
-	fba.refreshX5Desc('list&&'+fba.getVar(程序名+'顺搜高度'));
+	$('.form-box').css({"animation":"close .3s ease forwards"});
+	if(get_settings(程序名+"天气")!=true) fba.refreshX5Desc('list&&'+H5height);
 	setTimeout(function () {
-		$('.biaodan').hide();
-	},300)
+		$('.biaodan').css({"visibility":"hidden"});
+	},150)
 })
 //附加功能
 function 日历() {
@@ -1878,19 +1928,28 @@ $("#ONE_play").click(function () {
 		$(".ONE_radio").css({"animation":"drop_open .9s ease-in-out forwards"});
 		$(".ONE_radio p").fadeIn("900");
 		$(".weather,#weather_info").hide();
-		$(".movie").css({"animation":"close .3s linear forwards"});
+		$(".main").css({"animation":"close .3s linear forwards"});
 	} else {
 		fba.playVideos(JSON.stringify(ONE_Play))
 	}
 })
 $("#ONE_bg").click(function () {
 	if ($(".ONE_radio").width()> 150 ){
-		$(".ONE_radio").css({"animation":"close .3s linear forwards"});
+		$(".weather,#weather_info").hide();
+		$(".ONE_radio").css({"animation":"close .35s linear forwards"});
 		setTimeout(function () {
 			$(".ONE_radio").hide();
 		},300)
-		$(".weather,#weather_info").fadeIn("200");
-		$(".movie").css({"animation":"slideDownReturn0 .4s ease-out"});
+		$(".main").css({"animation":"slideDownReturn0 .35s linear"});
+		if(get_settings(程序名+"天气")!=true) {
+			$("#weather_info").css({"display": "block","animation":"天气 2s linear forwards"});
+		} else {
+			$('#weather_info').css({"display":"none"})
+			setTimeout(function () {
+				$(".weather").show(800);
+			},400)
+		}
+		$('.clock-container').show(2000).css("opacity",.4);
 	}
 })
 var push_tips, push_img, push_url, push_rule;
@@ -1907,9 +1966,6 @@ async function update(Up) {
 			Alert("顺搜更新出错", "一切随缘")
 			fba.writeFile(ln + 'ssts.json',Up);
 		}
-		$$$().x5LazyRule(() => {
-			deleteCache("https://hikerfans.com/weisyr/js/hikerPop.js")
-		})
 	}
 }
 async function push(Day) {
@@ -1933,24 +1989,7 @@ if (!fba.getVar('X5加载')) {
 	fba.putVar('X5加载', '完成')
 }
 try{requestAsync(Settings_json[程序名+"注入JS"],(key,html)=>{eval(html);})} catch(e){fba.log("注入的JS有错")}
-/*
-function weather(){
-	let H5width = window.screen.width;
-	WIDGET = {
-		"CONFIG": {
-		"layout": "1",
-		"width": H5width-(H5width/100*4),
-		"height": (fba.getVar(程序名+'顺搜高度') || document.documentElement.clientHeight) -97,
-		"background": "1",
-		"dataColor": "FFFFFF",
-		"borderRadius": "15",
-		"city": fba.getVar('cityid') || Settings_json["cityid"],
-		"key": "39d6eac175ed46fe91cdb4738786b652"
-	  }
-	}
-	requestAsync("https://widget.qweather.net/standard/static/js/he-standard-common.js?v=2.0",(key,html)=>{eval(html)});
-}
-*/
+
 fba.parseLazyRuleAsync($$$(位置缓存).lazyRule(() => {
 	try {
 		let city = JSON.parse(request('https://weatherapi.market.xiaomi.com/wtr-v3/location/city/search?locale=zh_cn&name='+input))[0];
@@ -1982,26 +2021,36 @@ fba.parseLazyRuleAsync($$$(位置缓存).lazyRule(() => {
 }),$$$.toString(()=>{
 	if(input.indexOf("latitude") > -1) {
 		input= JSON.parse(input);
-		$(".weather").fadeIn("200");
-		$("#weather_info").css({"animation":"天气 2s linear forwards"});
+		if(get_settings(程序名+"天气")!=true) {
+			$("#weather_info").css({"display": "block","animation":"天气 2s linear forwards"});
+		} else {
+			$('#weather_info').css({"display":"none"})
+		}
 		$('#weather_info a').text(位置缓存+' '+input.tem);
 		if(input.detail) fba.putVar('detail', input.detail);
 		let cityid = input.locationKey.replace('weathercn:','CN');
 		fba.putVar('cityid', cityid);
 		if(cityid != Settings_json["cityid"]) set_settings('cityid', cityid);
-		//weather();
 	} else if(input=="warn"){
 		set_settings('位置', "北京");
-		$(".weather").fadeIn("200");
 		$('#weather_info a').text("请输入正确的地市名");
 		Alert('天气位置不对', '请确保输入的地名正确')
 	} else {
 		fba.log('天气获取异常')
 	}
-		$('#he-plugin-standard').css({"display":"block","animation":"slideDownReturn0 .25s linear"});
+	$('#weather_iframe').attr('src', 'https://widget.tianqiapi.com/?style=ts&skin=durian&color='+bgColor+'&city=' + 位置缓存 + '&column=3');
+	if(get_settings(程序名+"天气")==true) {
+		if(document.documentElement.clientHeight<240) fba.refreshX5Desc('list&&'+240);
+		$('.weather').show(2000);
+	} else {
+		$('.weather').css({"display":"none"})
+	}
 }))
 $("#weather_info").click(() => {
-	if(!fba.getVar('detail')) Prompt("位置", 位置缓存);
+	$("#weather_info").hide();
+	$('.weather').css({"display":"block","animation":"天气_open .45s linear"});
+	if(document.documentElement.clientHeight<240) fba.refreshX5Desc('list&&'+240);
+	set_settings(程序名+"天气", true)
 	if(fba.getVar('detail')) {
 		const text = fba.getVar('detail');
 		const regex = /发布(.+?)预警/;
@@ -2009,15 +2058,7 @@ $("#weather_info").click(() => {
 		Alert('🚥 '+match+' 🚥',fba.getVar('detail'));
 	}
 	fba.clearVar("detail")
-	/*
-	$('.weather,#he-plugin-standard, #wv_1, #wv_2, #wv_3').css({"display":"block","animation":"slideDownReturn0 .25s linear"});
-	$(".IMG").css({"animation":"close .3s linear forwards"});
-	$(".weather").show("0");
-	set_settings(程序名+"天气", true)
-	*/
 })
-
-/*
 $(".weather").on('click', "#wv_2", () => {
 	Prompt("位置", 位置缓存);
 })
@@ -2025,15 +2066,14 @@ $(".weather").on('click', "#wv_3", () => {
 	open_x5("https://caiyunapp.com/wx_share/", '#fullTheme#', '天气雷达');
 })
 $(".weather").on('click', "#wv_1", () => {
-	$('#he-plugin-standard, #wv_1, #wv_2, #wv_3').css({"animation":"close .3s ease-out"});
+	$('.weather').css({"animation":"天气_close .2s linear forwards"});
 	setTimeout(function () {
-		$("#he-plugin-standard, #wv_1, #wv_2, #wv_3").hide();
-	},300);
-	$(".IMG").show("0");
-	$(".IMG").css({"animation":"slideDownReturn0 .4s ease-out"});
+		$(".weather").hide();
+	},300);;
 	set_settings(程序名+"天气", false)
+	$("#weather_info").css({"display": "block","animation":"天气 2s linear forwards"});
+	if(document.documentElement.clientHeight<=260) fba.refreshX5Desc('list&&'+fba.getVar(程序名+'顺搜高度'));
 })
-*/
 async function file_load() {
 	fba.parseLazyRuleAsync($$$().lazyRule((ln) => {
 		let name = ['js/zepto.min.js','js/zepto-module.js','plug/level.js', 'plug/文件管理.js', 'img/frosted.png','icon/scan.svg','icon/search.svg','icon/radio_play.svg'];
@@ -2049,6 +2089,6 @@ async function file_load() {
 }
 file_load()
 fba.log("顺搜渲染耗时: " + (new Date().getTime() - t_begin));
-fba.refreshX5Desc('list&&'+H5height);
+if(get_settings(程序名+"天气")!=true) fba.refreshX5Desc('list&&'+H5height);
 </script>
 </html>
