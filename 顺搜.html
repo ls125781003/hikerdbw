@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
-<title>顺搜_by顺承天意(2024-07-29)</title>
+<title>顺搜_by顺承天意(2024-08-16)</title>
 <script type="text/javascript">
 let t_begin =new Date().getTime()
 </script>
@@ -2009,7 +2009,9 @@ fba.parseLazyRuleAsync($$$(位置缓存).lazyRule(() => {
 			host.tem=tem+"℃";
 			try{
 				let detail = weather_Json.alerts[0].detail;
+				let alertId = weather_Json.alerts[0].type+weather_Json.alerts[0].level+'预警';
 				host.detail= detail;
+				host.alertId= alertId;
 			} catch(e){}
 			return host
 		} else {
@@ -2028,6 +2030,7 @@ fba.parseLazyRuleAsync($$$(位置缓存).lazyRule(() => {
 		}
 		$('#weather_info a').text(位置缓存+' '+input.tem);
 		if(input.detail) fba.putVar('detail', input.detail);
+		if(input.alertId) fba.putVar('alertId', input.alertId);
 		let cityid = input.locationKey.replace('weathercn:','CN');
 		fba.putVar('cityid', cityid);
 		if(cityid != Settings_json["cityid"]) set_settings('cityid', cityid);
@@ -2051,13 +2054,9 @@ $("#weather_info").click(() => {
 	$('.weather').css({"display":"block","animation":"天气_open .45s linear"});
 	if(document.documentElement.clientHeight<240) fba.refreshX5Desc('list&&'+240);
 	set_settings(程序名+"天气", true)
-	if(fba.getVar('detail')) {
-		const text = fba.getVar('detail');
-		const regex = /发布(.+?)预警/;
-		const match = text.match(regex)[1]+'预警';
-		Alert('🚥 '+match+' 🚥',fba.getVar('detail'));
-	}
-	fba.clearVar("detail")
+	if(fba.getVar('detail')) Alert('🚥 '+fba.getVar('alertId')+' 🚥',fba.getVar('detail'));
+	fba.clearVar("detail");
+	fba.clearVar("alertId");
 })
 $(".weather").on('click', "#wv_2", () => {
 	Prompt("位置", 位置缓存);
@@ -2088,7 +2087,7 @@ async function file_load() {
 	},ln),$$$.toString(()=>{}));
 }
 file_load()
-fba.log("顺搜渲染耗时: " + (new Date().getTime() - t_begin));
+fba.log("顺搜渲染耗时: " + (new Date().getTime() - t_begin)/1000+'秒');
 if(get_settings(程序名+"天气")!=true) fba.refreshX5Desc('list&&'+H5height);
 </script>
 </html>
