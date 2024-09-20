@@ -3,15 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
-<title>顺搜_by顺承天意(2024-08-16)</title>
+<title>顺搜_by顺承天意(2024-09-3)</title>
 <script type="text/javascript">
 let t_begin =new Date().getTime()
 </script>
 <!-- <script src="https://cdn.bootcdn.net/ajax/libs/zepto/1.2.0/zepto.min.js"></script> -->
-<script src="js/zepto.min.js"></script>
-<script src="js/zepto-module.js"></script>
-<!-- <script src="https://hikerfans.com/weisyr/js/zepto.min.js"></script> -->
-<!-- <script src="https://hikerfans.com/weisyr/js/zepto-module.js"></script> -->
+<!-- <script src="js/zepto.min.js"></script> -->
+<!-- <script src="js/zepto-module.js"></script> -->
+<script src="https://hikerfans.com/weisyr/js/zepto.min.js"></script>
+<script src="https://hikerfans.com/weisyr/js/zepto-module.js"></script>
 <!-- <script src="https://cdn.bootcdn.net/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script> -->
 <style type="text/css">
 * {
@@ -147,7 +147,7 @@ button:active,
 @keyframes spaceOutDown{0%{opacity:1;transform:scale(1) translate(0);transform-origin:50% 100%}to{opacity:0;transform:scale(.2) translateY(300%);transform-origin:50% 100%}}
 .Pic_card, .main {
 	top: 0;
-	bottom: 0;
+	bottom: 0px;
 	left: 0;
 	right: 0;
 	margin:0 auto;
@@ -156,6 +156,7 @@ button:active,
 	overflow: hidden;
 	z-index: 0;
 	text-align: center;
+	/box-shadow: rgb(0, 0, 0, 0.65) 0 20px 25px -10px;
 }
 #search_box {
 	left: 0;
@@ -511,7 +512,7 @@ button:first-child {
 	left: 70%;
 	margin-top: 15px;
 }
-.s2 {
+.calendar, .s2, #month, #today {
 	box-shadow: rgba(0, 0, 0, 0.4) 0 2px 4px, rgba(0, 0, 0, 0.3) 0 7px 13px -3px, rgba(0, 0, 0, 0.2) 0 -3px 0 inset;
 }
 #open_function {
@@ -537,7 +538,6 @@ button:first-child {
 	margin-top: 15px;
 	border-radius: 8px;
 	background-color: rgba(255, 255, 255, 0.2);
-	box-shadow: rgba(0, 0, 0, 0.4) 0 2px 4px, rgba(0, 0, 0, 0.3) 0 7px 13px -3px, rgba(0, 0, 0, 0.2) 0 -3px 0 inset;
 }
 #month,
 #today {
@@ -546,7 +546,6 @@ button:first-child {
 	height: 100%;
 	align-items: center;
 	display: flex;
-	box-shadow: rgba(0, 0, 0, 0.4) 0 2px 4px, rgba(0, 0, 0, 0.3) 0 7px 13px -3px, rgba(0, 0, 0, 0.2) 0 -3px 0 inset;
 }
 #today {
 	left:0;
@@ -1798,7 +1797,7 @@ function 设定样式() {
 		$("#mask_toTop").css("background", "transparent");
 	}
 	if(边距圆角==true) {
-		$(".main").css({"left":"10px", "right":"10px", "border-radius":"18px"});
+		$(".main").css({"left":"3%", "right":"3%", "border-radius":"18px", "bottom": "30px", "box-shadow": "rgba(0, 0, 0, 0.45) 0px 25px 20px -20px"});
 	}
 }
 设定样式()
@@ -1811,9 +1810,9 @@ $("input[type='checkbox']:eq(2)").click(function() {
 })
 $("input[type='checkbox']:eq(3)").click(function() {
 	if($(this).is(':checked') ==true) {
-		$(".main").css({"left":"10px", "right":"10px", "border-radius":"18px"});
+		$(".main").css({"left":"3%", "right":"3%", "border-radius":"18px", "bottom": "30px", "box-shadow": "rgba(0, 0, 0, 0.45) 0px 25px 20px -20px"});
 	} else {
-		$(".main").css({"left": "0","right": "0","border-radius": "18px 18px 0 0"});
+		$(".main").css({"left":"0", "right":"0", "border-radius":"18px 18px 0 0", "bottom": "0", "box-shadow": "0"});
 	}
 })
 $("#sousuo").bind("keyup",function(event) {
@@ -2043,7 +2042,7 @@ fba.parseLazyRuleAsync($$$(位置缓存).lazyRule(() => {
 	}
 	$('#weather_iframe').attr('src', 'https://widget.tianqiapi.com/?style=ts&skin=durian&color='+bgColor+'&city=' + 位置缓存 + '&column=3');
 	if(get_settings(程序名+"天气")==true) {
-		if(document.documentElement.clientHeight<240) fba.refreshX5Desc('list&&'+240);
+		if(document.documentElement.clientHeight<290) fba.refreshX5Desc('list&&'+290);
 		$('.weather').show(2000);
 	} else {
 		$('.weather').css({"display":"none"})
@@ -2052,7 +2051,7 @@ fba.parseLazyRuleAsync($$$(位置缓存).lazyRule(() => {
 $("#weather_info").click(() => {
 	$("#weather_info").hide();
 	$('.weather').css({"display":"block","animation":"天气_open .45s linear"});
-	if(document.documentElement.clientHeight<240) fba.refreshX5Desc('list&&'+240);
+	if(document.documentElement.clientHeight<290) fba.refreshX5Desc('list&&'+290);
 	set_settings(程序名+"天气", true)
 	if(fba.getVar('detail')) Alert('🚥 '+fba.getVar('alertId')+' 🚥',fba.getVar('detail'));
 	fba.clearVar("detail");
