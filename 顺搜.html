@@ -3,15 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
-<title>顺搜_by顺承天意(2024-09-3)</title>
+<title>顺搜_by顺承天意(2024-11-6)</title>
 <script type="text/javascript">
 let t_begin =new Date().getTime()
 </script>
 <!-- <script src="https://cdn.bootcdn.net/ajax/libs/zepto/1.2.0/zepto.min.js"></script> -->
 <!-- <script src="js/zepto.min.js"></script> -->
 <!-- <script src="js/zepto-module.js"></script> -->
-<script src="https://hikerfans.com/weisyr/js/zepto.min.js"></script>
-<script src="https://hikerfans.com/weisyr/js/zepto-module.js"></script>
+<script src="http://123.56.105.145/weisyr/js/zepto.min.js"></script>
+<script src="http://123.56.105.145/weisyr/js/zepto-module.js"></script>
 <!-- <script src="https://cdn.bootcdn.net/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script> -->
 <style type="text/css">
 * {
@@ -896,7 +896,7 @@ function Alert(title, text) {
 async function 选择() {
 	fba.clearVar("s_q");
 	fba.parseLazyRuleAsync($$$("#noLoading#").lazyRule(() => {
-		const hikerPop = $.require("https://hikerfans.com/weisyr/js/hikerPop.js");
+		const hikerPop = $.require("http://123.56.105.145/weisyr/js/hikerPop.js");
 		hikerPop.selectCenter({
 			options: ["🔍顺搜", "🥑青豆"],
 			columns: 2,
@@ -936,7 +936,7 @@ async function 直搜(input) {
 		var js = JSON.parse(request(html)).data;
 		var n = js.map(t => t.name);
 		hideLoading();
-		var hikerPop = $.require("https://hikerfans.com/weisyr/js/hikerPop.js");
+		var hikerPop = $.require("http://123.56.105.145/weisyr/js/hikerPop.js");
 		hikerPop.selectCenter({
 			options: n,
 			columns: 1,
@@ -1004,7 +1004,7 @@ function Prompt(key, value) {
 			info = "恢复默认";
 			cancel = false
 		};
-		const hikerPop = $.require("https://hikerfans.com/weisyr/js/hikerPop.js");
+		const hikerPop = $.require("http://123.56.105.145/weisyr/js/hikerPop.js");
 		hikerPop.inputAutoRow({
 			hint: Settings_json[key] || input,
 			title: key,
@@ -1247,7 +1247,7 @@ function 重启轮播() {
 //自动匹配图库并压缩
 async function auto_match() {
 	fba.parseLazyRuleAsync($$$(pictures).lazyRule((ln,SS_Pictures) => {
-		let file = $.require("https://hikerfans.com/weisyr/js/file.js")
+		let file = $.require("http://123.56.105.145/weisyr/js/file.js")
 		let folder = file.getFolder("/storage/emulated/0/Android/data/com.example.hikerview/files/Documents/SS_Pictures/")
 		let file_name = []
 		let To_base64 = []
@@ -1555,7 +1555,7 @@ $("#lishiList").delegate('li', 'singleTap doubleTap longTap', function (e) {
 	if (e.type=="singleTap") {
 		$("#search-input")[0].value = input;
 		$("#input-clear").show();
-		$("#search-ok img").attr("src", 'https://hikerfans.com/weisyr/icon/search.svg');
+		$("#search-ok img").attr("src", 'http://123.56.105.145/weisyr/icon/search.svg');
 	} else if(e.type=="longTap") {
 		搜索记录 ("删除", input)
 	} else {
@@ -1651,7 +1651,7 @@ function CLOSE(id) {
 	if (id=="input-clear") {
 		$("#search-input").val("");
 		$("#input-clear").hide();
-		$("#search-ok img").attr("src", 'https://hikerfans.com/weisyr/icon/scan.svg');
+		$("#search-ok img").attr("src", 'http://123.56.105.145/weisyr/icon/scan.svg');
 	}
 	$(".CLOSE").hide();
 	$("#open_set").show(800);
@@ -1954,7 +1954,7 @@ $("#ONE_bg").click(function () {
 var push_tips, push_img, push_url, push_rule;
 async function update(Up) {
 	if (request(ln + 'ssts.json') != Up) {
-		var x5 = request('https://hikerfans.com/weisyr/顺搜.html');
+		var x5 = request('http://123.56.105.145/weisyr/顺搜.html');
 		if (x5.indexOf("search") > 0) {
 			fba.writeFile(ln + '顺搜.html', x5)
 			fba.writeFile(ln + 'ssts.json',Up);
@@ -1983,7 +1983,7 @@ async function push(Day) {
 }
 if (!fba.getVar('X5加载')) {
 	$('.pics_img').css({"animation":"淡入 0.9s linear forwards"});
-	requestAsync("https://hikerfans.com/weisyr/plug/ssts.js",(key,html)=>{eval(html);})
+	requestAsync("http://123.56.105.145/weisyr/plug/ssts.js",(key,html)=>{eval(html);})
 	if (localStorage.getItem("日") != Today && nowdays.getHours() > 5 || !localStorage.getItem('ONE_RADIO')) ONE_RADIO(nowMonth);
 	fba.putVar('X5加载', '完成')
 }
@@ -2075,7 +2075,7 @@ $(".weather").on('click', "#wv_1", () => {
 async function file_load() {
 	fba.parseLazyRuleAsync($$$().lazyRule((ln) => {
 		let name = ['js/zepto.min.js','js/zepto-module.js','plug/level.js', 'plug/文件管理.js', 'img/frosted.png','icon/scan.svg','icon/search.svg','icon/radio_play.svg'];
-		let wn = 'https://hikerfans.com/weisyr/';
+		let wn = 'http://123.56.105.145/weisyr/';
 		for (let n = 0; n < name.length; n++) {
 			let localfile = [ln + name[n]];
 			let webfile = [wn + name[n]];
