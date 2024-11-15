@@ -5,7 +5,7 @@ function 顺搜(height, arr) {
 		putVar(程序名+'顺搜高度', JSON.stringify(height));
 		var 本地 =getPath('hiker://files/rules/dzHouse/html/顺搜.html');
 		if (fileExist(本地) == false) {
-			var 远程x5 = request('https://ghproxy.net/https://raw.githubusercontent.com/ls125781003/hikerdbw/master/顺搜.html');
+			var 远程x5 = request('https://ghproxy.cc/https://raw.githubusercontent.com/ls125781003/hikerdbw/master/顺搜.html');
 			if (远程x5.indexOf("search") > 0) {
 				writeFile(本地, 远程x5);
 			} else {
